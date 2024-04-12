@@ -44,13 +44,13 @@ class Board {
         // that do not have any remianing BuildingBlocks on the board when displaying
         vector<int> tetrisBlocksOnBoard;
 
-        
+
 
         // placeds a game block at the top of the board
         void newTetrisPiece();
 
 
-
+        
         void gameLoop();
 
         // print board for testing 

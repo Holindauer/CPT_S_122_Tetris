@@ -65,7 +65,7 @@ class TetrisPiece : public BuildingBlock {
         ~TetrisPiece();
 
         // vector of building blocks that make up the Tetris piece
-        vector<BuildingBlock*> buidlingBlocks;
+        vector<BuildingBlock*> buildingBlocks;
         // color of tetris pice
         Color color;
 
@@ -79,13 +79,13 @@ class TetrisPiece : public BuildingBlock {
          * overloaded check collision function for a GameBlock applies the inherited BuidlingBlock
          * checkCollision() function to each BuidingBlock in the GameBlock function.
         */
-        bool checkCollision();
+        bool checkCollisionDown(BuildingBlock* board[36][12]);
 
         /**
          * overloaded moveDown() function for a GameBlock applies the inherited BuidlingBlock
          * moveDown() function to each BuidingBlock in the GameBlock function.
         */
-        void moveDown();
+        void moveDown(BuildingBlock* board[36][12]);
 
 
 };

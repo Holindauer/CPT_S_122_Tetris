@@ -9,7 +9,6 @@
 */
 Board::Board(){
     
-    
     // populate rows, cols
     for(int row=0; row<rows; row++){
         for (int col=0; col<cols; col++){ 
@@ -18,29 +17,23 @@ Board::Board(){
     }   
 }
 
-/**
- * @jeff This function prints the state of the board to the terminal. I am using it for testing
- * the computer representation of what is happening in memory. The grpahics displayed at each iter
- * of the game loop will follow the same logic. There will be an update to the comptuer representaion
- * then it will be displayed.
- * 
-*/
-void Board::printBoard(){
 
-    // cout << "printing board" << endl;
+void Board::gameLoop(){
 
-    // populate rows, cols
-    for(int row=0; row<rows; row++){
-        for(int col=0; col<cols; col++){  
+    newTetrisPiece();
 
-            if (board[row][col] == nullptr) { cout << "~ ";}else { cout << "X ";}
-        }
-    
-        cout << "\n";
+    TetrisPiece* piece = gameBlockMap[movingPieceBlockId];
+
+    while (piece->isMoving){
+
+        piece->moveDown(board);
+
+
+        printBoard();
+
     }
-}
 
-void Board::gameLoop(){}
+}
 
 
 /**
@@ -74,7 +67,7 @@ void Board::newTetrisPiece(){
             block->blockID = timestamp;
 
             // push block to the piece vector 
-            piece->buidlingBlocks.push_back(block);
+            piece->buildingBlocks.push_back(block);
         }
     }  
 
@@ -84,4 +77,27 @@ void Board::newTetrisPiece(){
 
     // set currently moving piece to the new tetris piece blockID
     this->movingPieceBlockId = timestamp;
+}
+
+
+/**
+ * @jeff This function prints the state of the board to the terminal. I am using it for testing
+ * the computer representation of what is happening in memory. The grpahics displayed at each iter
+ * of the game loop will follow the same logic. There will be an update to the comptuer representaion
+ * then it will be displayed.
+ * 
+*/
+void Board::printBoard(){
+
+    // cout << "printing board" << endl;
+
+    // populate rows, cols
+    for(int row=0; row<rows; row++){
+        for(int col=0; col<cols; col++){  
+
+            if (board[row][col] == nullptr) { cout << "~ ";}else { cout << "X ";}
+        }
+    
+        cout << "\n";
+    }
 }
