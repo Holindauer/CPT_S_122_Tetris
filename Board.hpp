@@ -11,7 +11,8 @@ using std::vector;
 
 class Board {
     /**
-     * The 
+     * The Board class contains a vector of vectors of Building block pointers. This is
+     * the computer representation of the tetris board in memory, 
      * 
     */
 
@@ -19,15 +20,17 @@ class Board {
     public:
 
         // board setup
-        Board(int _xSize, int _ySize);
+        Board();
 
-        // Dynamic 1D array of building blocks (2D simulated)
-        vector<BuildingBlock*> board;
+        // board dims must match board static arr
+        int rows=36, cols=12;
 
-        // board dimmensions
-        int xSize, ySize;
+        // vector of vectors of building block ptrs representing the
+        BuildingBlock* board[36][12];
 
-        int index(int row, int col);
+        // tetris pieces
+        vector<GameBlock*> pieces;
+
 
         // print board
         void printBoard();      

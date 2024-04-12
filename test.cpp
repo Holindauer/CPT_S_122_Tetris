@@ -4,7 +4,7 @@
 
 int main(void){
 
-    Board board(10, 30);
+    Board board;
 
     board.printBoard();
 

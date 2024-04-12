@@ -8,19 +8,31 @@ using std::vector;
 // colors
 enum Color { Red, Blue, Green, Yellow};
 
-// Individual squares of game blocks
-typedef struct { int row, col; } BuildingBlock;
 
 
-class GameBlock{
-    /**
-     * A GameBlock contains the building blocks of a falling tetris piece. The main data
-     * component of the GameBlock is a vector of BuildingBLocks. Building blocks contain 
-     * the (row, col) indices for a single square of a game block.
-     * 
-     * Building blocks are moved down the Board class's 2d matrix in a 
-     * 
-    */
+class BuildingBlock {
+
+    public: 
+        int row, col;
+
+        /**
+         * virtual checkCollision() funciton checks whether there is a piece directly under
+         * this building block. This function nmust return true in order for the moveDown()
+         * function to apply a change to the position of the block.
+        */
+        /*virtual*/ bool checkCollision();
+        
+        /**
+         * virtual moveDown() funciton moves an individual piece down the board 
+         * one square after applying the checkCollision() function
+        */
+        /*virtual*/ void moveDown();
+
+
+};
+
+
+class GameBlock : public BuildingBlock {
 
     public:
 
@@ -35,11 +47,17 @@ class GameBlock{
         // whether or not to keep moving the piece downward
         bool isMoving;
             
-        // movement functions
+        /**
+         * overloaded check collision function for a GameBlock applies the inherited BuidlingBlock
+         * checkCollision() function to each BuidingBlock in the GameBlock function.
+        */
+        bool checkCollision();
+
+        /**
+         * overloaded moveDown() function for a GameBlock applies the inherited BuidlingBlock
+         * moveDown() function to each BuidingBlock in the GameBlock function.
+        */
         void moveDown();
-        bool keepMoving(BuildingBlock** board); 
-
-
 
 
 };
