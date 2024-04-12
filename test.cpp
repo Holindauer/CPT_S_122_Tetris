@@ -1,11 +1,18 @@
 #include "Board.hpp"
-#include "GameBlock.hpp"
+#include "TetrisPiece.hpp"
 
 
 int main(void){
 
     Board board;
 
+    cout << "Starting Board" << endl;
+
+    board.printBoard();
+
+    cout << "After Placing a Piece on the Board" << endl;
+
+    board.newTetrisPiece();
     board.printBoard();
 
 

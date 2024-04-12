@@ -1,4 +1,4 @@
-g++ Board.cpp GameBlock.cpp test.cpp -o main
+g++ Board.cpp TetrisPiece.cpp test.cpp -o main
 
 ./main
 
