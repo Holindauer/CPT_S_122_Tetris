@@ -57,8 +57,6 @@ void Board::newTetrisPiece(){
     this->movingPieceBlockId = piece->blockID;
 }
 
-
-
 /**
  * @notice descendFallingPiece() accesses the currently moving piece using the movingPieceID key from the gameBlockMape
 */

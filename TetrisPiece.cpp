@@ -29,6 +29,9 @@ TetrisPiece::~TetrisPiece(){
 */
 bool BuildingBlock::collisionDown(BuildingBlock* board[36][12], vector<BuildingBlock*> blocksInPiece){
 
+    // check that moving the piece down will not move it off the board
+    if (row + 1 < 32) { return false; }
+
     // compare each block in the tetris piece to the the block directly beneath this on and accumulate a 
     // count of piece comparisons that yield false. If this count matches the size of the blocksInPiece vector, 
     // we are dealing with a buillding block that is not related to the piece
@@ -71,6 +74,9 @@ bool TetrisPiece::collisionDown(BuildingBlock* board[36][12]){
 */
 bool BuildingBlock::collisionRight(BuildingBlock* board[36][12], vector<BuildingBlock*> blocksInPiece){
 
+    // check that moving the piece down will not move it off the board
+    if (col + 1 < 12) { return false; }
+
     // compare each block in the tetris piece to the the block directly beneath this on and accumulate a 
     // count of piece comparisons that yield false. If this count matches the size of the blocksInPiece vector, 
     // we are dealing with a buillding block that is not related to the piece
@@ -112,6 +118,10 @@ bool TetrisPiece::collisionRight(BuildingBlock* board[36][12]){
  * pieces within the otherBlocksInPiece vector
 */
 bool BuildingBlock::collisionLeft(BuildingBlock* board[36][12], vector<BuildingBlock*> blocksInPiece){
+
+    // check that moving the piece down will not move it off the board
+    if (col - 1 > 0) { return false; }
+
 
     // compare each block in the tetris piece to the the block directly beneath this on and accumulate a 
     // count of piece comparisons that yield false. If this count matches the size of the blocksInPiece vector, 
