@@ -11,6 +11,8 @@ using std::endl;
 using std::vector;
 using std::unordered_map;
 
+// SFML branch demo
+
 class Board {
     /**
      * The Board class is the computer representation of the game. The board is represented as a static 2D array 
