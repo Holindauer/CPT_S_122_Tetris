@@ -19,6 +19,15 @@ int main(void){
     board.descendFallingPiece();
     board.printBoard();
 
+    cout << "After Moving Right" << endl;
+    board.moveRight();
+    board.printBoard();
+
+    cout << "After Moving Left" << endl;
+    board.moveLeft();
+    board.printBoard();
+
+
 
     return 0;
 }

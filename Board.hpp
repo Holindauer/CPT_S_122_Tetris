@@ -52,6 +52,10 @@ class Board {
         // moves the currently moving piece down 1
         void descendFallingPiece();
 
+        // player movement functions
+        void moveRight();
+        void moveLeft();
+
 
         
         void gameLoop();

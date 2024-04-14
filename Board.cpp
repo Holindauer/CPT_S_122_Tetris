@@ -87,6 +87,27 @@ void Board::descendFallingPiece(){
     piece->moveDown(board);
 }
 
+// Moves play piece right if there is no collision
+void Board::moveRight(){
+
+    // retrieve the currently moving piece and descend it.
+    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
+    piece->moveRight(board);
+}
+
+// Moves play piece right if there is no collision
+void Board::moveLeft(){
+
+    // retrieve the currently moving piece and descend it.
+    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
+    piece->moveLeft(board);
+}
+
+
+
+
+
+
 /**
  * @jeff This function prints the state of the board to the terminal. I am using it for testing
  * the computer representation of what is happening in memory. The grpahics displayed at each iter

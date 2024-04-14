@@ -32,24 +32,11 @@ class BuildingBlock {
         // the time of creation for the block in unix time. The 
         int blockID;
 
-        /**
-         * checkCollision() function checks whether there is a piece directly under
-         * this building block. This function must return true in order for the moveDown()
-         * function to apply a change to the position of the block.
-        */
+        // collisions functions check if there the next building block in the specified 
+        // direction that is neither part of the tetris block nor is nullptr 
         virtual bool collisionDown(BuildingBlock* board[36][12], vector<BuildingBlock*> otherBlocksInPiece);
-    
-        bool checkCollisionRight();
-        bool checkCollisionLeft();
-        
-        /**
-         * moveDown() funciton moves an individual piece down the board 
-         * one square after applying the checkCollision() function
-        */
-        void moveDown();
-
-        void moveRight();
-        void moveLeft();
+        virtual bool collisionRight(BuildingBlock* board[36][12], vector<BuildingBlock*> otherBlocksInPiece);
+        virtual bool collisionLeft(BuildingBlock* board[36][12], vector<BuildingBlock*> otherBlocksInPiece);        
 };
 
 
@@ -87,12 +74,12 @@ class TetrisPiece : public BuildingBlock {
          * checkCollision() function to each BuidingBlock in the GameBlock function.
         */
         bool collisionDown(BuildingBlock* board[36][12]);
+        bool collisionRight(BuildingBlock* board[36][12]);
+        bool collisionLeft(BuildingBlock* board[36][12]);
 
-        /**
-         * overloaded moveDown() function for a GameBlock applies the inherited BuidlingBlock
-         * moveDown() function to each BuidingBlock in the GameBlock function.
-        */
+        // moves a block down one position if there is now colision
         void moveDown(BuildingBlock* board[36][12]);
-
+        void moveRight(BuildingBlock* board[36][12]);
+        void moveLeft(BuildingBlock* board[36][12]);
 
 };
