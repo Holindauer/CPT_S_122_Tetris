@@ -7,7 +7,23 @@ void gameLoop(){
 
 
     Board board;
+
+	// TODO after a piece is determined to be in an imminent collision.
+	// TODO stop the movement and spawn a new piece
 	board.newTetrisPiece();
+
+	// TODO make a piece fall periodically throughout the loop
+    board.descendFallingPiece();
+
+	// TODO This needs to be called after the RIGHT key is pressed
+    board.moveRight();
+
+	// TODO This needs to be called after the LEFT key is pressed
+    board.moveLeft();
+
+	// TODO Test SFML display agianst this prinout
+    board.printBoard();
+
 
     sf::RenderWindow window(sf::VideoMode(320, 800), "Tetris!");
 
@@ -18,6 +34,7 @@ void gameLoop(){
 	border.setOutlineColor(sf::Color::Blue);
 
 
+    cout << "Starting Board" << endl;
 
 	while (window.isOpen())
 	{
