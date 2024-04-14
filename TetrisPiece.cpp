@@ -26,7 +26,6 @@ TetrisPiece::~TetrisPiece(){
  * pieces within the otherBlocksInPiece vector
 */
 bool BuildingBlock::collisionDown(BuildingBlock* board[36][12], vector<BuildingBlock*> blocksInPiece){
-    cout << "BuidlingBlock::collisionDown()" << endl;
 
     // compare each block in the tetris piece to the the block directly beneath this on and accumulate a 
     // count of piece comparisons that yield false. If this count matches the size of the blocksInPiece vector, 
@@ -47,7 +46,6 @@ bool BuildingBlock::collisionDown(BuildingBlock* board[36][12], vector<BuildingB
  * that are part of the TetrisPiece, and building blocks that are not part of the tetris piece
 */
 bool TetrisPiece::collisionDown(BuildingBlock* board[36][12]){
-    cout << "TetrisPiece::collisionDown()" << endl;
 
     // check each block for collision
     for (int i=0; i<4; i++){    
@@ -71,25 +69,23 @@ bool TetrisPiece::collisionDown(BuildingBlock* board[36][12]){
  * the provided board array by 
 */
 void TetrisPiece::moveDown(BuildingBlock* board[36][12]){
-    cout << "TetrisPiece::moveDown()" << endl;
-    
-    if (this->collisionDown(board) != true && isMoving) {
-        cout << "No Colision" << endl;
 
-        // move all 4 blocks down
+    // check collision
+    if (this->collisionDown(board) != true && isMoving) {
+
+        // first set all previous positions on the board to nullptr
+        for (int i=0; i<4; i++){
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = nullptr;
+        }       
+         
+        // the place all on the board the new position of the 
         for (int i=0; i<4; i++){
 
-            // access block
-            BuildingBlock* block = this->buildingBlocks[i];
+            // move block's stored position down 1 row
+            buildingBlocks[i]->row += 1;
 
-            // set previous position on the board to nullptr
-            board[block->row][block->col] = nullptr;
-
-            // set one unit down the board to the block ptr
-            board[block->row][block->col + 1] = block;
-
-            // update the block's position to reflect new board position
-            block->col += 1;
+            // place i'th block's ptr at its new position
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = buildingBlocks[i];
         }        
     }
 }
