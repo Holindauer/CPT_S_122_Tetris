@@ -15,6 +15,10 @@ int main(void){
     board.newTetrisPiece();
     board.printBoard();
 
+    cout << "After Moving Down" << endl;
+    board.descendFallingPiece();
+    board.printBoard();
+
 
     return 0;
 }

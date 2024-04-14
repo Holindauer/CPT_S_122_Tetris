@@ -36,18 +36,21 @@ class Board {
         // the blockID of the piece that is currently moving
         int movingPieceBlockId; 
 
-        // gameBlockMap maps the blockIdentifier within each BuildingBlock struct to the 
+        // pieceIDMap maps the blockIdentifier within each BuildingBlock struct to the 
         // GameBLock ptr it belongs to.
-        unordered_map<int, TetrisPiece*> gameBlockMap;
+        unordered_map<int, TetrisPiece*> pieceIDMap;
 
         // blockID's of tetris blocks on the board make sure to .erase() tetris pieces 
         // that do not have any remianing BuildingBlocks on the board when displaying
-        vector<int> tetrisBlocksOnBoard;
+        vector<int> pieceIDsOnBoard;
 
 
 
         // placeds a game block at the top of the board
         void newTetrisPiece();
+
+        // moves the currently moving piece down 1
+        void descendFallingPiece();
 
 
         

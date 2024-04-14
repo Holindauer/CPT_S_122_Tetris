@@ -3,7 +3,10 @@
 
 #include <vector>
 #include <ctime>// citation for accessing unix timestamp https://stackoverflow.com/questions/6012663/get-unix-timestamp-with-c
+#include <iostream>
 
+using std::cout;
+using std::endl;
 using std::vector;
 
 
@@ -14,9 +17,10 @@ enum Color { Red, Blue, Green, Yellow};
 
 class BuildingBlock {
     /**
-     * A building block is the elementary units of the TetrisPiece struct. It stores the postion of a single
-     * square. Movement movement functions are defined here as well, meaning that individual pieces are moved
-     * at a time, rather than the entire TetrisPiece.
+     * BuildingBlocks are the elementary units of the TetrisPiece struct. It stores the postion of a single
+     * square as well as a unique identifer for the TetrisBlock is belongs to. Movement movement functions 
+     * are defined here as well, meaning that individual pieces are moved one at a time, rather than the entire 
+     * TetrisPiece.
     */
 
     public: 
@@ -30,10 +34,10 @@ class BuildingBlock {
 
         /**
          * checkCollision() function checks whether there is a piece directly under
-         * this building block. This function nmust return true in order for the moveDown()
+         * this building block. This function must return true in order for the moveDown()
          * function to apply a change to the position of the block.
         */
-        bool checkCollisionDown();
+        virtual bool collisionDown(BuildingBlock* board[36][12], vector<BuildingBlock*> otherBlocksInPiece);
     
         bool checkCollisionRight();
         bool checkCollisionLeft();
@@ -57,15 +61,18 @@ class TetrisPiece : public BuildingBlock {
      * 
      * The TetrisPiece class inherits from the BuildingBLock class in order to coordinate the movement of each 
      * BuildingBlock that makes up the TetrisPiece using the inehrited movement functions.
+     * 
+     * Note: a TetrisPiece always has four blocks
     */
 
     public:
 
-        TetrisPiece() = default;
+        TetrisPiece();
         ~TetrisPiece();
 
         // vector of building blocks that make up the Tetris piece
         vector<BuildingBlock*> buildingBlocks;
+
         // color of tetris pice
         Color color;
 
@@ -79,7 +86,7 @@ class TetrisPiece : public BuildingBlock {
          * overloaded check collision function for a GameBlock applies the inherited BuidlingBlock
          * checkCollision() function to each BuidingBlock in the GameBlock function.
         */
-        bool checkCollisionDown(BuildingBlock* board[36][12]);
+        bool collisionDown(BuildingBlock* board[36][12]);
 
         /**
          * overloaded moveDown() function for a GameBlock applies the inherited BuidlingBlock
