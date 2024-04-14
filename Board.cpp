@@ -18,24 +18,6 @@ Board::Board(){
 }
 
 
-void Board::gameLoop(){
-
-    newTetrisPiece();
-
-    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
-
-    while (piece->isMoving){
-
-        piece->moveDown(board);
-
-
-        printBoard();
-
-    }
-
-}
-
-
 /**
  * newTetrisPiece() creates dynamiclaly allocates a new TetrisPiece struct, p[lacing into it dynamically 
  * allocated BuilidingBlock structs that make up a square piece in the upper right corner.
@@ -102,11 +84,6 @@ void Board::moveLeft(){
     TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
     piece->moveLeft(board);
 }
-
-
-
-
-
 
 /**
  * @jeff This function prints the state of the board to the terminal. I am using it for testing

@@ -56,10 +56,6 @@ class Board {
         void moveRight();
         void moveLeft();
 
-
-        
-        void gameLoop();
-
         // print board for testing 
         void printBoard();      
 };
