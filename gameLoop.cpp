@@ -33,38 +33,80 @@ void gameLoop(){
     border.setFillColor(sf::Color::Transparent);
 	border.setOutlineColor(sf::Color::Blue);
 
+    // Start clock
+	sf::Clock clock; 
+
+	// set framerate to 60 fps
+    const sf::Time frameRate = sf::seconds(1.f / 30.f); // 60 fps
+
+	// time frame has ben on the board
+    sf::Time frameTime = sf::Time::Zero;
+
+	// time a piece will float before descending
+	sf::Time maxPieceFloatTime = sf::seconds(1.f);
+
+	// time since the piece has descended
+	sf::Time timePieceHasFloated = sf::Time::Zero;
+
+
+
 
     cout << "Starting Board" << endl;
-
 	while (window.isOpen())
 	{
-
 		window.clear();
 		window.draw(border);
 		window.display();
 
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
+		// reset elsapsed time
+        sf::Time elapsedTime = clock.restart();
+
+		// increment the time this frame has been 
+		// on the screen by the time since the reset
+        frameTime += elapsedTime;  
+		timePieceHasFloated += elapsedTime;
+
+        while (frameTime > frameRate){
+
+			// reset the time the frame has been on the board
+            frameTime -= frameRate;
+
+			// descent the piece if it has flaoted longer than the pieceFloatTime, 
+			if (timePieceHasFloated > maxPieceFloatTime){
+
+				// reset flaot time 
+				timePieceHasFloated -= maxPieceFloatTime;
+
+				// descend piece within the computer representation of the board
+				board.descendFallingPiece();
+			}
+
+
+			sf::Event event;
+			while (window.pollEvent(event)){
+
+				if (event.type == sf::Event::Closed)
+					window.close();
+					system("clear");
+					board.printBoard();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+
+				// update representation in memory
+				board.moveRight();
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+
+				// update representation in memory
+				board.moveLeft();
+				system("clear");
+				board.printBoard();
+			}
 		}
 
-		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
-		// 	// update representation in memory
-		// 	board.moveRight();
-		// }
 
-		// if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-
-		// 	// update representation in memory
-		// 	board.moveLeft();
-
-		// }
-
-        // system("clear");
-        // board.printBoard();
 	}
 
 
