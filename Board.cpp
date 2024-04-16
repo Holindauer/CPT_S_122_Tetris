@@ -104,3 +104,91 @@ void Board::printBoard(){
         cout << "\n";
     }
 }
+
+
+/**
+ * checkFullRow() checks if the specified row is full of BuildingBLock structs
+*/
+bool Board::checkFullRow(int row){
+    
+    int blockCount = 0;
+
+    // check entire contents of row
+    for (int col=0; col<12; col++){
+        if (board[row][col] != nullptr){ blockCount++; }
+    }
+
+    // if 12 blocks fill the row, it is full
+    if (blockCount == 12){
+        return true;
+    }
+    return false;
+}
+
+/**
+ * clearFullRows() clears all full rows on the board
+*/
+void Board::clearFullRows(){
+
+    bool piecesUpdated = false;
+
+    for (int row=0; row<36; row++){
+
+        // clear all BuildingBLocks in full rows
+        if (checkFullRow(row)){
+            for (int col=0; col<12; col++){
+                board[row][col] = nullptr;
+            }
+            piecesUpdated = true;
+        }
+    }
+
+    if (piecesUpdated){
+        updatePieceMap();
+    }
+}
+
+/**
+ * updatePieceMap() finds and remoces a specific building block from 
+ * within a TetrisPiece wihtin a the pieceIDMap have been cleared
+*/
+void Board::updatePieceMap(){
+
+    for (int i=0; i<pieceIDsOnBoard.size(); i++){
+
+        // retireve piece id
+        int pieceID = pieceIDsOnBoard[i];
+
+        // retrieve vector of building blocks from the current piece 
+        vector<BuildingBlock*> buildingBlocks = pieceIDMap[pieceID]->buildingBlocks;
+
+        // remove empty buildingblocks from the vector 
+        for (int b=0; b<buildingBlocks.size(); i++){ 
+            
+            int row = buildingBlocks[b]->row;
+            int col = buildingBlocks[b]->col;
+
+            if (board[row][col] == nullptr){
+                buildingBlocks.erase(buildingBlocks.begin() + b);
+            }
+        }
+    }
+
+    // remove any empty pieces after clearing rows
+    for (int i=0; i<pieceIDsOnBoard.size(); i++){
+
+        // retireve piece id
+        int pieceID = pieceIDsOnBoard[i];
+
+        // retrieve vector of building blocks from the current piece 
+        vector<BuildingBlock*> buildingBlocks = pieceIDMap[pieceID]->buildingBlocks;
+        
+        // If there are no more building blocks, remove the piece
+        if (buildingBlocks.size() == 0){
+
+            // remove piece from piece IDs on Board
+            pieceIDsOnBoard.erase(pieceIDsOnBoard.begin() + i);
+            pieceIDMap.erase(pieceID);
+        }
+    }
+}

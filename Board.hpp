@@ -58,6 +58,13 @@ class Board {
         void moveRight();
         void moveLeft();
 
+        // check full row
+        bool checkFullRow(int row);
+
+        // clears all full rows
+        void clearFullRows();
+        void updatePieceMap();
+
         // print board for testing 
         void printBoard();      
 };

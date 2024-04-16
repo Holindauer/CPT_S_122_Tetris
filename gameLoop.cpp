@@ -43,12 +43,10 @@ void gameLoop(){
     sf::Time frameTime = sf::Time::Zero;
 
 	// time a piece will float before descending
-	sf::Time maxPieceFloatTime = sf::seconds(1.f);
+	sf::Time maxPieceFloatTime = sf::seconds(0.128f);
 
 	// time since the piece has descended
 	sf::Time timePieceHasFloated = sf::Time::Zero;
-
-
 
 
     cout << "Starting Board" << endl;
@@ -67,6 +65,17 @@ void gameLoop(){
 		timePieceHasFloated += elapsedTime;
 
         while (frameTime > frameRate){
+
+			// if a piece has been placed on the board
+			if (board.pieceIDMap[board.movingPieceBlockId]->isMoving == false){
+
+				// make a new piece
+				board.newTetrisPiece();
+
+				for (int i=0; i<36; i++){
+					board.clearFullRows();
+				}
+			}
 
 			// reset the time the frame has been on the board
             frameTime -= frameRate;
@@ -87,8 +96,6 @@ void gameLoop(){
 
 				if (event.type == sf::Event::Closed)
 					window.close();
-					system("clear");
-					board.printBoard();
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
@@ -100,12 +107,13 @@ void gameLoop(){
 
 				// update representation in memory
 				board.moveLeft();
-				system("clear");
-				board.printBoard();
+				
 			}
 		}
 
-
+		// Remove this once the graphics are implemented 
+		system("clear");
+		board.printBoard();
 
 	}
 
