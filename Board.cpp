@@ -191,3 +191,15 @@ void Board::updatePieceMap(){
         }
     }
 }
+
+bool Board::isEmpty(int x, int y)
+{
+    if (board[x][y] == nullptr)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

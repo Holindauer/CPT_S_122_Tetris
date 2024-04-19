@@ -61,4 +61,6 @@ class Board {
 
         // print board for testing 
         void printBoard();      
+
+        bool isEmpty(int x, int y);
 };

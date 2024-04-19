@@ -4,6 +4,8 @@
 
 // TODO: if time available segment code for readability purposes
 // TODO: title screen
+// TODO: Death COndition
+// TODO: Bug -> split square -> right side not fully down => (Force down function?) || (No split Square -> Collision)
 
 void gameLoop(){
 
@@ -15,9 +17,6 @@ void gameLoop(){
 	int cellSize = 20; // TODO: sync with class
 
 	board.newTetrisPiece();
-
-	// TODO Test SFML display agianst this prinout
-    board.printBoard();
 
 	// Window and border param
 	int window_width = 320;
@@ -92,13 +91,16 @@ void gameLoop(){
 		window.clear();
 		window.draw(border);
 
-		// Filling With Cells
+		// Filling With Cells -> TODO: Only Put In FULL Cells
 		for (int height = 0; height < rows; height++)
 		{
 			for (int length = 0; length < cols; length++)
 			{
+				if (!board.isEmpty(height, length))
+				{
 				cells[height][length].setPosition(cellSize * length, cellSize * height);
 				window.draw(cells[height][length].cellShape);
+				}
 			}
 		}
 		window.display();
