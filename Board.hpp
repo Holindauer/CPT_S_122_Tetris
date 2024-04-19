@@ -1,15 +1,9 @@
 #pragma once
-
-#include <vector>
-#include <iostream>
-#include <unordered_map>
-
 #include "TetrisPiece.hpp"
 
-using std::cout;
-using std::endl;
-using std::vector;
-using std::unordered_map;
+// variables used in game loop to place squares 
+extern int cols;
+extern int rows;
 
 // SFML branch demo
 
@@ -32,7 +26,7 @@ class Board {
         // board dims must match board static arr
         int rows=36, cols=12;
 
-        // vector of vectors of building block ptrs representing the
+        // vector of vectors of building block ptrs representing the board
         BuildingBlock* board[36][12];
 
         // the blockID of the piece that is currently moving
@@ -67,4 +61,6 @@ class Board {
 
         // print board for testing 
         void printBoard();      
+
+        bool isEmpty(int x, int y);
 };

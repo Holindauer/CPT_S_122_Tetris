@@ -1,5 +1,4 @@
 #include "Board.hpp"
-#include "TetrisPiece.hpp"
 
 
 
@@ -190,5 +189,17 @@ void Board::updatePieceMap(){
             pieceIDsOnBoard.erase(pieceIDsOnBoard.begin() + i);
             pieceIDMap.erase(pieceID);
         }
+    }
+}
+
+bool Board::isEmpty(int x, int y)
+{
+    if (board[x][y] == nullptr)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

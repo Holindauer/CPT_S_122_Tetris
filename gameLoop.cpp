@@ -1,37 +1,82 @@
 #include "gameLoop.hpp"
+#include "Board.hpp"
+#include "cell.hpp"
 
-#include <cstdlib>
-#include <SFML/Graphics.hpp>
+// TODO: if time available segment code for readability purposes
+
+// TODO: Make it less sensitive 
+
+// TODO: change x -> R/G/B
+
+// TODO: When Row Clear We Need To Drop Blocks By 2 Levels to progress game
+
+// TODO: enable multishape -> Origin block must be on left hand side due to collision checks -> Rotation Possible With this??
+
+// TODO: Title Screen and Score
+
+// TODO: Death Condition
+
+// TODO: MultiPlayer
 
 void gameLoop(){
 
+	int rows = 36;
+	int cols = 12;
 
     Board board;
+	Cell cells[rows][cols];
+	int cellSize = 20; // TODO: sync with class
 
-	// TODO after a piece is determined to be in an imminent collision.
-	// TODO stop the movement and spawn a new piece
 	board.newTetrisPiece();
 
-	// TODO make a piece fall periodically throughout the loop
-    board.descendFallingPiece();
+	// Window and border param
+	int window_width = 320;
+	int window_height = 800;
+	int border_width = 245;
+	int border_height = 725;
 
-	// TODO This needs to be called after the RIGHT key is pressed
-    board.moveRight();
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Tetris!");
 
-	// TODO This needs to be called after the LEFT key is pressed
-    board.moveLeft();
-
-	// TODO Test SFML display agianst this prinout
-    board.printBoard();
-
-
-    sf::RenderWindow window(sf::VideoMode(320, 800), "Tetris!");
-
-	sf::RectangleShape border(sf::Vector2f(240, 720));
+	// Border Shape 
+	sf::RectangleShape border(sf::Vector2f(border_width, border_height));
 	border.setOutlineThickness(5);
     border.setPosition(40, 40);
     border.setFillColor(sf::Color::Transparent);
 	border.setOutlineColor(sf::Color::Blue);
+
+	// Music -------------------------------------------
+	// Messing Around With Commands -> Confirming We Can Use Open Music Sources Before Grabbing Some Online
+	// Xtra credit for unqiue songs?
+	sf::Music music;
+	string filename;
+	music.setVolume(20.f);
+
+	int variable = rand() % 6 + 1;
+	switch (variable)
+	{
+		case 1:
+			filename = "Songs/Thinking.wav";
+			break;
+		case 2:
+			filename = "Songs/3D array.ogg";
+			break;
+		case 3:
+			filename = "Songs/Cody'sDogs.ogg";
+			break;
+		case 4:
+			filename = "Songs/myocardial inf(ra)ction.ogg";
+			break;	
+		case 5:
+			filename = "Songs/Project_2.ogg";
+			break;
+		case 6:
+			filename = "Songs/lost.wav";
+			break;
+	}
+
+	// Incorporate if !music.getStatus() != sf::Music::Playing 
+	music.openFromFile(filename);
+	music.play();
 
     // Start clock
 	sf::Clock clock; 
@@ -54,6 +99,19 @@ void gameLoop(){
 	{
 		window.clear();
 		window.draw(border);
+
+		// Filling With Cells -> TODO: Only Put In FULL Cells
+		for (int height = 0; height < rows; height++)
+		{
+			for (int length = 0; length < cols; length++)
+			{
+				if (!board.isEmpty(height, length))
+				{
+				cells[height][length].setPosition(cellSize * length, cellSize * height);
+				window.draw(cells[height][length].cellShape);
+				}
+			}
+		}
 		window.display();
 
 		// reset elsapsed time
@@ -113,8 +171,7 @@ void gameLoop(){
 
 		// Remove this once the graphics are implemented 
 		system("clear");
-		board.printBoard();
-
+		//board.printBoard();
 	}
 
 

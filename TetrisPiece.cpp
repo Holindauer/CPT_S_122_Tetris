@@ -100,6 +100,7 @@ bool TetrisPiece::collisionRight(BuildingBlock* board[36][12]){
         // check each of the four blocks for collision using BuidlingBlock's collisionRight() 
         for (int j=0; j<4; j++){
             if (block->collisionRight(board, buildingBlocks)){ return true; }
+            if (((buildingBlocks[i]->col)+1) == 12){ return true; } // If imminent collision w/ right border then return true
         }
     }   
 
@@ -142,6 +143,7 @@ bool TetrisPiece::collisionLeft(BuildingBlock* board[36][12]){
         // check each of the four blocks for collision using BuidlingBlock's collisionRight() 
         for (int j=0; j<4; j++){
             if (block->collisionLeft(board, buildingBlocks)){ return true; }
+            if (((buildingBlocks[i]->col)-1) == -1){ return true; } // If imminent collision w/ left border then return true
         }
     }   
 

@@ -1,13 +1,5 @@
 #pragma once
-
-
-#include <vector>
-#include <ctime> // citation for accessing unix timestamp https://stackoverflow.com/questions/6012663/get-unix-timestamp-with-c
-#include <iostream>
-
-using std::cout;
-using std::endl;
-using std::vector;
+#include "TetrisMaster.hpp"
 
 
 // colors
