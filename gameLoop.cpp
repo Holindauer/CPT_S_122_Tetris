@@ -1,33 +1,33 @@
 #include "gameLoop.hpp"
+#include "Board.hpp"
+#include "cell.hpp"
 
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
 void gameLoop(){
 
+	int rows = 36;
+	int cols = 12;
 
     Board board;
+	Cell cells[rows][cols];
+	int cellSize = 30; // TODO: sync with class
 
-	// TODO after a piece is determined to be in an imminent collision.
-	// TODO stop the movement and spawn a new piece
 	board.newTetrisPiece();
-
-	// TODO make a piece fall periodically throughout the loop
-    board.descendFallingPiece();
-
-	// TODO This needs to be called after the RIGHT key is pressed
-    board.moveRight();
-
-	// TODO This needs to be called after the LEFT key is pressed
-    board.moveLeft();
 
 	// TODO Test SFML display agianst this prinout
     board.printBoard();
 
+	// Window and border param
+	int window_width = 320;
+	int window_height = 800;
+	int border_width = 240;
+	int border_height = 720;
 
-    sf::RenderWindow window(sf::VideoMode(320, 800), "Tetris!");
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Tetris!");
 
-	sf::RectangleShape border(sf::Vector2f(240, 720));
+	sf::RectangleShape border(sf::Vector2f(border_width, border_height));
 	border.setOutlineThickness(5);
     border.setPosition(40, 40);
     border.setFillColor(sf::Color::Transparent);
@@ -54,6 +54,16 @@ void gameLoop(){
 	{
 		window.clear();
 		window.draw(border);
+
+		// Filling With Cells
+		for (int height = 0; height < rows; height++)
+		{
+			for (int length = 0; length < cols; length++)
+			{
+				cells[height][length].setPosition(cellSize * length, cellSize * height);
+				window.draw(cells[height][length].cellShape);
+			}
+		}
 		window.display();
 
 		// reset elsapsed time
@@ -114,7 +124,6 @@ void gameLoop(){
 		// Remove this once the graphics are implemented 
 		system("clear");
 		board.printBoard();
-
 	}
 
 
