@@ -2,8 +2,8 @@
 #include "Board.hpp"
 #include "cell.hpp"
 
-#include <cstdlib>
-#include <SFML/Graphics.hpp>
+// TODO: if time available segment code for readability purposes
+// TODO: title screen
 
 void gameLoop(){
 
@@ -12,7 +12,7 @@ void gameLoop(){
 
     Board board;
 	Cell cells[rows][cols];
-	int cellSize = 30; // TODO: sync with class
+	int cellSize = 20; // TODO: sync with class
 
 	board.newTetrisPiece();
 
@@ -22,16 +22,53 @@ void gameLoop(){
 	// Window and border param
 	int window_width = 320;
 	int window_height = 800;
-	int border_width = 240;
-	int border_height = 720;
+	int border_width = 245;
+	int border_height = 725;
 
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Tetris!");
 
+	// Border Shape 
 	sf::RectangleShape border(sf::Vector2f(border_width, border_height));
 	border.setOutlineThickness(5);
     border.setPosition(40, 40);
     border.setFillColor(sf::Color::Transparent);
 	border.setOutlineColor(sf::Color::Blue);
+
+	// Music -------------------------------------------
+	// Messing Around With Commands -> Confirming We Can Use Open Music Sources Before Grabbing Some Online
+	// Xtra credit for unqiue songs?
+	sf::Music music;
+	string filename;
+	music.setVolume(10.f);
+
+ 	srand(time(0));
+	int variable = rand() % 6 + 1;
+
+	switch (variable)
+	{
+		case 1:
+			filename = "Songs/Thinking.wav";
+			break;
+		case 2:
+			filename = "Songs/3D array.ogg";
+			break;
+		case 3:
+			filename = "Songs/Cody'sDogs.ogg";
+			break;
+		case 4:
+			filename = "Songs/myocardial inf(ra)ction.ogg";
+			break;	
+		case 5:
+			filename = "Songs/Project_2.ogg";
+			break;
+		case 6:
+			filename = "Songs/lost.wav";
+			break;
+	}
+
+	// Incorporate if !music.getStatus() != sf::Music::Playing 
+	music.openFromFile(filename);
+	music.play();
 
     // Start clock
 	sf::Clock clock; 

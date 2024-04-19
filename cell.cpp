@@ -3,13 +3,13 @@
 
 Cell::Cell()
 {
-    cellShape.setSize(sf::Vector2f(10, 10));
+    cellShape.setSize(sf::Vector2f(15, 15));
     cellShape.setFillColor(sf::Color::White);
 }
 
 void Cell::setPosition(int width, int height)
 {
-    cellShape.setPosition(width, height);
+    cellShape.setPosition(width + 45, height + 45); // +40 to fit within border, +5 to center squares (legnth = 10 and origin = topleft not center)
 }
 
 sf::Vector2f Cell::getPosition()

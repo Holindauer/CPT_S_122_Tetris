@@ -1,15 +1,5 @@
 #pragma once
-
-#include <vector>
-#include <iostream>
-#include <unordered_map>
-
 #include "TetrisPiece.hpp"
-
-using std::cout;
-using std::endl;
-using std::vector;
-using std::unordered_map;
 
 // variables used in game loop to place squares 
 extern int cols;
