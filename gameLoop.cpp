@@ -8,13 +8,11 @@
 
 // TODO: change x -> R/G/B
 
-// TODO: enable multishape
+// TODO: enable multishape -> Origin block must be on left hand side due to collision checks
 
 // TODO: title screen
 
 // TODO: Death COndition
-
-// TODO: Bug -> split square -> right side not fully down => (Force down function?) || (No split Square -> Collision)
 
 void gameLoop(){
 
@@ -47,7 +45,7 @@ void gameLoop(){
 	// Xtra credit for unqiue songs?
 	sf::Music music;
 	string filename;
-	music.setVolume(10.f);
+	music.setVolume(20.f);
 
 	int variable = rand() % 6 + 1;
 	switch (variable)
