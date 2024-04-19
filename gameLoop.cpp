@@ -3,8 +3,17 @@
 #include "cell.hpp"
 
 // TODO: if time available segment code for readability purposes
+
+// TODO: Make it less sensitive 
+
+// TODO: change x -> R/G/B
+
+// TODO: enable multishape
+
 // TODO: title screen
+
 // TODO: Death COndition
+
 // TODO: Bug -> split square -> right side not fully down => (Force down function?) || (No split Square -> Collision)
 
 void gameLoop(){
@@ -40,9 +49,7 @@ void gameLoop(){
 	string filename;
 	music.setVolume(10.f);
 
- 	srand(time(0));
 	int variable = rand() % 6 + 1;
-
 	switch (variable)
 	{
 		case 1:
@@ -162,7 +169,7 @@ void gameLoop(){
 
 		// Remove this once the graphics are implemented 
 		system("clear");
-		board.printBoard();
+		//board.printBoard();
 	}
 
 
