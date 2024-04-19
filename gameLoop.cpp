@@ -8,11 +8,15 @@
 
 // TODO: change x -> R/G/B
 
-// TODO: enable multishape -> Origin block must be on left hand side due to collision checks
+// TODO: When Row Clear We Need To Drop Blocks By 2 Levels to progress game
 
-// TODO: title screen
+// TODO: enable multishape -> Origin block must be on left hand side due to collision checks -> Rotation Possible With this??
 
-// TODO: Death COndition
+// TODO: Title Screen and Score
+
+// TODO: Death Condition
+
+// TODO: MultiPlayer
 
 void gameLoop(){
 
