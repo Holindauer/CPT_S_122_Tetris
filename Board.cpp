@@ -21,7 +21,7 @@ Board::Board(){
  * newTetrisPiece() creates dynamiclaly allocates a new TetrisPiece struct, p[lacing into it dynamically 
  * allocated BuilidingBlock structs that make up a square piece in the upper right corner.
 */
-void Board::newTetrisPiece(){
+void Board::newTetrisBlock(){
 
     // create tetris piece container
     TetrisPiece* piece = new TetrisPiece;
@@ -45,8 +45,40 @@ void Board::newTetrisPiece(){
 
             // push block to the piece vector 
             piece->buildingBlocks.push_back(block);
-        } // -------------------------------------------------
+        } 
 
+        // Place new piece in the board's game block map using block id
+        pieceIDMap[piece->blockID] = piece;
+        pieceIDsOnBoard.push_back(piece->blockID);
+
+        // set currently moving piece to the new tetris piece blockID
+        this->movingPieceBlockId = piece->blockID;
+
+    }
+}
+
+void Board::newTetrisPole()
+{
+    // create tetris piece container
+    TetrisPiece* piece = new TetrisPiece;
+    for (int row = 0; row < 4; row++) {
+        for (int col = 0; col < 1; col++) {
+            // allocate mem for new block
+            BuildingBlock* block = new BuildingBlock;
+
+            // place block ptr in the board arr
+            board[row][col] = block;
+
+            // set position in upper right corner
+            block->row = row;
+            block->col = col;
+
+            // set block id for this building block
+            block->blockID = piece->blockID;
+
+            // push block to the piece vector 
+            piece->buildingBlocks.push_back(block);
+        }
 
     // Place new piece in the board's game block map using block id
     pieceIDMap[piece->blockID] = piece;

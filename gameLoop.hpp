@@ -4,3 +4,4 @@
 
 void gameLoop();
 string musicPlayer();
+void makeTetrisPiece();

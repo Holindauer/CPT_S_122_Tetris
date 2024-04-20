@@ -19,16 +19,17 @@
 
 // TODO: Loop Music
 
+Board board;
+
 void gameLoop(){
 
 	int rows = 36;
 	int cols = 12;
 
-    Board board;
 	Cell cells[rows][cols];
 	int cellSize = 20; // TODO: sync with class
 
-	board.newTetrisPiece();
+	makeTetrisPiece();
 
 	// Window and border param
 	int window_width = 320;
@@ -46,7 +47,6 @@ void gameLoop(){
 	border.setOutlineColor(sf::Color::Blue);
 
 	// Music
-	srand(time(0));
 	string filename;
 	sf::Music music;
 	music.setVolume(20.f);
@@ -116,7 +116,7 @@ void gameLoop(){
 			if (board.pieceIDMap[board.movingPieceBlockId]->isMoving == false){
 
 				// make a new piece
-				board.newTetrisPiece();
+				makeTetrisPiece();
 
 				for (int i=0; i<36; i++){
 					board.clearFullRows();
@@ -164,6 +164,7 @@ void gameLoop(){
 string musicPlayer()
 {
 	string filename;
+	srand(time(0));
 	int variable = rand() % 6 + 1;
 
 	switch (variable)
@@ -189,4 +190,21 @@ string musicPlayer()
 	}
 
 	return filename;
+}
+
+void makeTetrisPiece()
+{
+	srand(time(0));
+	int pieceType = rand() % 2 + 1;
+
+	switch(pieceType)
+	{
+		case 1:
+			board.newTetrisBlock();
+			break;
+		case 2:
+			board.newTetrisPole();
+			break;
+	}
+
 }

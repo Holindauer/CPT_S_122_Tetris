@@ -43,7 +43,8 @@ class Board {
 
 
         // placeds a game block at the top of the board
-        void newTetrisPiece();
+        void newTetrisBlock();
+        void newTetrisPole();
 
         // moves the currently moving piece down 1
         void descendFallingPiece();
