@@ -195,7 +195,7 @@ string musicPlayer()
 void makeTetrisPiece()
 {
 	srand(time(0));
-	int pieceType = rand() % 2 + 1;
+	int pieceType = rand() % 4 + 1;
 
 	switch(pieceType)
 	{
@@ -205,6 +205,11 @@ void makeTetrisPiece()
 		case 2:
 			board.newTetrisPole();
 			break;
-	}
-
+		case 3:
+			board.newTetrisL();
+			break;
+		case 4:
+			board.newTetrisFlat();
+			break;
+	} 
 }

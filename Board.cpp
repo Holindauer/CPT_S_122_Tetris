@@ -61,6 +61,7 @@ void Board::newTetrisPole()
 {
     // create tetris piece container
     TetrisPiece* piece = new TetrisPiece;
+
     for (int row = 0; row < 4; row++) {
         for (int col = 0; col < 1; col++) {
             // allocate mem for new block
@@ -88,6 +89,76 @@ void Board::newTetrisPole()
     this->movingPieceBlockId = piece->blockID;
     }
 }
+
+void Board::newTetrisL()
+{
+    // create tetris piece container
+    TetrisPiece* piece = new TetrisPiece;
+    int jBlockPattern[4][2] = {{0,0}, {1,0}, {1,1}, {1,2}};
+
+    for (int i = 0; i < 4; i++) {
+            int row = jBlockPattern[i][0];
+            int col = jBlockPattern[i][1];
+
+        // allocate mem for new block
+        BuildingBlock* block = new BuildingBlock;
+
+        // place block ptr in the board arr
+        board[row][col] = block;
+
+        // set position in upper right corner
+        block->row = row;
+        block->col = col;
+
+        // set block id for this building block
+        block->blockID = piece->blockID;
+
+        // push block to the piece vector 
+        piece->buildingBlocks.push_back(block);
+    }
+
+    // Place new piece in the board's game block map using block id
+    pieceIDMap[piece->blockID] = piece;
+    pieceIDsOnBoard.push_back(piece->blockID);
+
+    // set currently moving piece to the new tetris piece blockID
+    this->movingPieceBlockId = piece->blockID;
+} 
+
+void Board::newTetrisFlat()
+{
+    // create tetris piece container
+    TetrisPiece* piece = new TetrisPiece;
+    int jBlockPattern[4][2] = {{0,0}, {0,1}, {0,2}};
+
+    for (int i = 0; i < 4; i++) {
+            int row = jBlockPattern[i][0];
+            int col = jBlockPattern[i][1];
+
+        // allocate mem for new block
+        BuildingBlock* block = new BuildingBlock;
+
+        // place block ptr in the board arr
+        board[row][col] = block;
+
+        // set position in upper right corner
+        block->row = row;
+        block->col = col;
+
+        // set block id for this building block
+        block->blockID = piece->blockID;
+
+        // push block to the piece vector 
+        piece->buildingBlocks.push_back(block);
+    }
+
+    // Place new piece in the board's game block map using block id
+    pieceIDMap[piece->blockID] = piece;
+    pieceIDsOnBoard.push_back(piece->blockID);
+
+    // set currently moving piece to the new tetris piece blockID
+    this->movingPieceBlockId = piece->blockID;
+} 
 
 /**
  * @notice descendFallingPiece() accesses the currently moving piece using the movingPieceID key from the gameBlockMape

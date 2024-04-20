@@ -40,12 +40,12 @@ class Board {
         // that do not have any remianing BuildingBlocks on the board when displaying
         vector<int> pieceIDsOnBoard;
 
-
-
         // placeds a game block at the top of the board
         void newTetrisBlock();
         void newTetrisPole();
-
+        void newTetrisL();
+        void newTetrisFlat();
+        
         // moves the currently moving piece down 1
         void descendFallingPiece();
 
