@@ -131,9 +131,18 @@ void gameLoop(){
 
 				// make a new piece
 				board.newTetrisPiece();
+				
+				try {	
+					// clear any full rows
+					if (board.clearFullRows()){
+						
+						// update board if changes were made
+						board.updatePieceMap();
+						board.removeEmptyTetrisPieces();
+					}
 
-				for (int i=0; i<36; i++){
-					board.clearFullRows();
+				} catch(...){
+					cout << "Error clearing rows" << endl;
 				}
 			}
 
