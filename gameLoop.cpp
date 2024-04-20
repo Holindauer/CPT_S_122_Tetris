@@ -23,6 +23,18 @@ void gameLoop(){
 	int rows = 36;
 	int cols = 12;
 
+	// Score based on # of TetrisBlocks that have been placed
+	sf::Text scoreTxt;
+	sf::Font font;
+	int score = 1;
+
+	font.loadFromFile("Assets/Fonts/Font.TTF");
+	scoreTxt.setFont(font);
+
+	scoreTxt.setCharacterSize(25);
+	scoreTxt.setFillColor(sf::Color::White);
+	scoreTxt.setPosition(40, 4);
+
     Board board;
 	Cell cells[rows][cols];
 	int cellSize = 20; // TODO: sync with class
@@ -44,35 +56,10 @@ void gameLoop(){
     border.setFillColor(sf::Color::Transparent);
 	border.setOutlineColor(sf::Color::Blue);
 
-	// Music -------------------------------------------
-	// Messing Around With Commands -> Confirming We Can Use Open Music Sources Before Grabbing Some Online
-	// Xtra credit for unqiue songs?
-	sf::Music music;
+	// Music
 	string filename;
+	sf::Music music;
 	music.setVolume(20.f);
-
-	int variable = rand() % 6 + 1;
-	switch (variable)
-	{
-		case 1:
-			filename = "Songs/Thinking.wav";
-			break;
-		case 2:
-			filename = "Songs/3D array.ogg";
-			break;
-		case 3:
-			filename = "Songs/Cody'sDogs.ogg";
-			break;
-		case 4:
-			filename = "Songs/myocardial inf(ra)ction.ogg";
-			break;	
-		case 5:
-			filename = "Songs/Project_2.ogg";
-			break;
-		case 6:
-			filename = "Songs/lost.wav";
-			break;
-	}
 
 	// Incorporate if !music.getStatus() != sf::Music::Playing 
 	music.openFromFile(filename);
@@ -96,12 +83,17 @@ void gameLoop(){
 
 	// gameOver status
 	bool gameOver = false;
-
-    cout << "Starting Board" << endl;
 	while (window.isOpen() && gameOver != true)
 	{
 		window.clear();
 		window.draw(border);
+
+		if (music.getStatus() == sf::SoundSource::Status::Stopped)
+		{
+			filename = musicPlayer();
+			music.openFromFile(filename);
+			music.play();
+		}
 
 		// Filling With Cells -> TODO: Only Put In FULL Cells
 		for (int height = 0; height < rows; height++)
@@ -115,6 +107,12 @@ void gameLoop(){
 				}
 			}
 		}
+
+		string scoreAsString = std::to_string(score);
+		string totalString = "Score: " + scoreAsString;
+		scoreTxt.setString(totalString);
+		window.draw(scoreTxt);
+
 		window.display();
 
 		// reset elsapsed time
@@ -188,11 +186,37 @@ void gameLoop(){
 				
 			}
 		}
+	}
+}
 
-		// Remove this once the graphics are implemented 
-		system("clear");
-		//board.printBoard();
+string musicPlayer()
+{
+	sf::Music music;
+	string filename;
+	srand(time(0));
+	int variable = rand() % 6 + 1;
+
+	switch (variable)
+	{
+		case 1:
+			filename = "Assets/Songs/Thinking.wav";
+			break;
+		case 2:
+			filename = "Assets/Songs/3D array.ogg";
+			break;
+		case 3:
+			filename = "Assets/Songs/Cody'sDogs.ogg";
+			break;
+		case 4:
+			filename = "Assets/Songs/myocardial inf(ra)ction.ogg";
+			break;	
+		case 5:
+			filename = "Assets/Songs/Project_2.ogg";
+			break;
+		case 6:
+			filename = "Assets/Songs/lost.wav";
+			break;
 	}
 
-
+	return filename;
 }

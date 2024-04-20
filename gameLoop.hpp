@@ -3,3 +3,4 @@
 #include "Board.hpp"
 
 void gameLoop();
+string musicPlayer();
