@@ -3,19 +3,8 @@
 #include "cell.hpp"
 
 // TODO: if time available segment code for readability purposes
-
-// TODO: Make it less sensitive 
-
+// Wen't with HUNTERS multiple shapes -> leaves an extra block for some reason?
 // TODO: change x -> R/G/B
-
-// TODO: When Row Clear We Need To Drop Blocks By 2 Levels to progress game
-
-// TODO: enable multishape -> Origin block must be on left hand side due to collision checks -> Rotation Possible With this??
-
-// TODO: Title Screen and Score
-
-// TODO: Death Condition
-
 // TODO: MultiPlayer
 
 void gameLoop(){
