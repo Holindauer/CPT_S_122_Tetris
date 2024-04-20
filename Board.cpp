@@ -26,7 +26,7 @@ void Board::newTetrisPiece(){
     // create tetris piece container
     TetrisPiece* piece = new TetrisPiece;
 
-    // place a 2x2 cube in the upper right corner of the board
+    // place a 2x2 cube in the upper right corner of the board -----
     for (int row=0; row<2; row++){
         for(int col=0; col<2; col++){
 
@@ -45,8 +45,8 @@ void Board::newTetrisPiece(){
 
             // push block to the piece vector 
             piece->buildingBlocks.push_back(block);
-        }
-    }  
+        } // -------------------------------------------------
+
 
     // Place new piece in the board's game block map using block id
     pieceIDMap[piece->blockID] = piece;
@@ -54,6 +54,7 @@ void Board::newTetrisPiece(){
 
     // set currently moving piece to the new tetris piece blockID
     this->movingPieceBlockId = piece->blockID;
+    }
 }
 
 /**

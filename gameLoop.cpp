@@ -9,6 +9,7 @@
 // TODO: change x -> R/G/B
 
 // TODO: When Row Clear We Need To Drop Blocks By 2 Levels to progress game
+// TODO: Clear bottom row then above row BUG
 
 // TODO: enable multishape -> Origin block must be on left hand side due to collision checks -> Rotation Possible With this??
 
@@ -17,6 +18,8 @@
 // TODO: Death Condition
 
 // TODO: MultiPlayer
+
+// TODO: Loop Music
 
 void gameLoop(){
 
@@ -101,6 +104,10 @@ void gameLoop(){
 		window.draw(border);
 
 		// Filling With Cells -> TODO: Only Put In FULL Cells
+		// TetrisPiece -> New tetris piece sets ID
+		// Board -> Takes ID and return piece pointers 
+		// vector piece ID 
+		// building vecotr -> row and col
 		for (int height = 0; height < rows; height++)
 		{
 			for (int length = 0; length < cols; length++)
