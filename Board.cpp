@@ -109,6 +109,7 @@ void Board::printBoard(){
  * checkFullRow() checks if the specified row is full of BuildingBLock structs
 */
 bool Board::checkFullRow(int row){
+    cout << "Checking if row " << row << " Is full" << endl; 
     
     int blockCount = 0;
 
@@ -128,6 +129,7 @@ bool Board::checkFullRow(int row){
  * clearFullRows() clears all full rows on the board
 */
 void Board::clearFullRows(){
+    cout << "Attempting to clear full row" << endl;
 
     bool piecesUpdated = false;
 
@@ -135,6 +137,9 @@ void Board::clearFullRows(){
 
         // clear all BuildingBLocks in full rows
         if (checkFullRow(row)){
+
+            cout << "Row " << row << " is full" << endl;
+
             for (int col=0; col<12; col++){
                 board[row][col] = nullptr;
             }
@@ -143,7 +148,12 @@ void Board::clearFullRows(){
     }
 
     if (piecesUpdated){
-        updatePieceMap();
+        try{ 
+            updatePieceMap();
+        }
+        catch (const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 }
 
@@ -152,22 +162,29 @@ void Board::clearFullRows(){
  * within a TetrisPiece wihtin a the pieceIDMap have been cleared
 */
 void Board::updatePieceMap(){
+    cout << "Updating Piece Map" << endl;
 
+    // update each piece on the voard
     for (int i=0; i<pieceIDsOnBoard.size(); i++){
 
         // retireve piece id
         int pieceID = pieceIDsOnBoard[i];
+        cout << "Piece ID: " << pieceID << endl;
 
-        // retrieve vector of building blocks from the current piece 
+        // retrieve vector of building blocks from the current piece
         vector<BuildingBlock*> buildingBlocks = pieceIDMap[pieceID]->buildingBlocks;
 
         // remove empty buildingblocks from the vector 
-        for (int b=0; b<buildingBlocks.size(); i++){ 
+        for (int b=0; b<buildingBlocks.size(); b++){ 
             
             int row = buildingBlocks[b]->row;
             int col = buildingBlocks[b]->col;
 
+            cout << "Checking (" << row << ", " << col << ")" << endl;
+
             if (board[row][col] == nullptr){
+                cout << "Removing (" << row << ", " << col << ")" << endl; 
+
                 buildingBlocks.erase(buildingBlocks.begin() + b);
             }
         }
@@ -192,14 +209,9 @@ void Board::updatePieceMap(){
     }
 }
 
-bool Board::isEmpty(int x, int y)
-{
-    if (board[x][y] == nullptr)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+// Checks if a position on the board is empty
+bool Board::isEmpty(int x, int y){
+
+    if (board[x][y] == nullptr) { return true; }
+    else { return false; }
 }

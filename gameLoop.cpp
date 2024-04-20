@@ -88,7 +88,9 @@ void gameLoop(){
     sf::Time frameTime = sf::Time::Zero;
 
 	// time a piece will float before descending
-	sf::Time maxPieceFloatTime = sf::seconds(0.128f);
+	// sf::Time maxPieceFloatTime = sf::seconds(0.128f);
+
+	sf::Time maxPieceFloatTime = sf::seconds(0.08f);
 
 	// time since the piece has descended
 	sf::Time timePieceHasFloated = sf::Time::Zero;
