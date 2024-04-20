@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <string>
 
 using std::cout;
 using std::endl;

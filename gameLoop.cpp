@@ -26,6 +26,18 @@ void gameLoop(){
 	int rows = 36;
 	int cols = 12;
 
+	// Score based on # of TetrisBlocks that have been placed
+	sf::Text scoreTxt;
+	sf::Font font;
+	int score = 1;
+
+	font.loadFromFile("Font.TTF");
+	scoreTxt.setFont(font);
+
+	scoreTxt.setCharacterSize(25);
+	scoreTxt.setFillColor(sf::Color::White);
+	scoreTxt.setPosition(40, 4);
+
 	Cell cells[rows][cols];
 	int cellSize = 20; // TODO: sync with class
 
@@ -100,6 +112,12 @@ void gameLoop(){
 				}
 			}
 		}
+
+		string scoreAsString = std::to_string(score);
+		string totalString = "Score: " + scoreAsString;
+		scoreTxt.setString(totalString);
+		window.draw(scoreTxt);
+
 		window.display();
 
 		// reset elsapsed time
@@ -117,6 +135,7 @@ void gameLoop(){
 
 				// make a new piece
 				makeTetrisPiece();
+				score++;
 
 				for (int i=0; i<36; i++){
 					board.clearFullRows();
