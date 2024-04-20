@@ -48,7 +48,7 @@ void gameLoop(){
 	border.setOutlineThickness(5);
     border.setPosition(40, 40);
     border.setFillColor(sf::Color::Transparent);
-	border.setOutlineColor(sf::Color::Blue);
+	border.setOutlineColor(sf::Color::Black);
 
 	// Music
 	string filename;
@@ -90,7 +90,6 @@ void gameLoop(){
 			music.play();
 		}
 
-		// Filling With Cells -> TODO: Only Put In FULL Cells
 		for (int height = 0; height < rows; height++)
 		{
 			for (int length = 0; length < cols; length++)
@@ -138,7 +137,7 @@ void gameLoop(){
 				try {	
 					// clear any full rows
 					if (board.clearFullRows()){
-						
+						score + 10;
 						// update board if changes were made
 						board.updatePieceMap();
 						board.removeEmptyTetrisPieces();
