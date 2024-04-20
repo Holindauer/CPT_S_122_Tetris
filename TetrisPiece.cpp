@@ -21,6 +21,28 @@ TetrisPiece::~TetrisPiece(){
     }
 }
 
+
+// places a new building block within the tetris piece at the specified position
+void TetrisPiece::pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]){
+
+    // allocate mem for new block
+    BuildingBlock* block = new BuildingBlock;
+
+        // place block ptr in the board arr
+        board[row][col] = block;
+
+            // set position in upper right corner
+        block->row = row;
+        block->col = col;
+
+        // set block id for this building block
+        block->blockID = this->blockID;
+
+        // push block to the piece vector 
+        this->buildingBlocks.push_back(block);
+}
+
+
 // -------------------------------------------------------------------------------------------------------------- Collision Check Functions
 
 /**

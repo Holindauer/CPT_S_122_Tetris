@@ -40,8 +40,6 @@ class Board {
         // that do not have any remianing BuildingBlocks on the board when displaying
         vector<int> pieceIDsOnBoard;
 
-
-
         // placeds a game block at the top of the board
         void newTetrisPiece();
 
@@ -52,15 +50,20 @@ class Board {
         void moveRight();
         void moveLeft();
 
-        // check full row
+        // funcs for clearing rows
         bool checkFullRow(int row);
-
-        // clears all full rows
-        void clearFullRows();
+        bool clearFullRows();
         void updatePieceMap();
+        void removeEmptyTetrisPieces();
+        void shiftAfterClearing(vector<int> clearedRows);
 
         // print board for testing 
         void printBoard();      
+        bool isEmpty(int x, int y); 
 
-        bool isEmpty(int x, int y);
+        // new piece placement funcs
+        void newSquarePiece(TetrisPiece* piece);
+        void newSPiece(TetrisPiece* piece);
+        void newLongPiece(TetrisPiece* piece);
+        void newTPiece(TetrisPiece* piece);
 };

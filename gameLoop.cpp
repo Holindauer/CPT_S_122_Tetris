@@ -88,14 +88,17 @@ void gameLoop(){
     sf::Time frameTime = sf::Time::Zero;
 
 	// time a piece will float before descending
-	sf::Time maxPieceFloatTime = sf::seconds(0.128f);
+	// sf::Time maxPieceFloatTime = sf::seconds(0.128f);
+	sf::Time maxPieceFloatTime = sf::seconds(0.08f);
 
 	// time since the piece has descended
 	sf::Time timePieceHasFloated = sf::Time::Zero;
 
+	// gameOver status
+	bool gameOver = false;
 
     cout << "Starting Board" << endl;
-	while (window.isOpen())
+	while (window.isOpen() && gameOver != true)
 	{
 		window.clear();
 		window.draw(border);
@@ -130,8 +133,25 @@ void gameLoop(){
 				// make a new piece
 				board.newTetrisPiece();
 
-				for (int i=0; i<36; i++){
-					board.clearFullRows();
+				// if there is a collision after placing the piece, end the game
+				TetrisPiece* newPiece = board.pieceIDMap[board.movingPieceBlockId];
+				if (newPiece->collisionDown(board.board)){
+					cout << "GAME OVER" << endl;
+					gameOver = true;
+					break;
+				}
+				
+				try {	
+					// clear any full rows
+					if (board.clearFullRows()){
+						
+						// update board if changes were made
+						board.updatePieceMap();
+						board.removeEmptyTetrisPieces();
+					}
+
+				} catch(...){
+					cout << "Error clearing rows" << endl;
 				}
 			}
 
