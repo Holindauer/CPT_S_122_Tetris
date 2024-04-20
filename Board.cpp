@@ -26,27 +26,26 @@ void Board::newTetrisPiece(){
     // create tetris piece container
     TetrisPiece* piece = new TetrisPiece;
 
-    // place a 2x2 cube in the upper right corner of the board
-    for (int row=0; row<2; row++){
-        for(int col=0; col<2; col++){
 
-            // allocate mem for new block
-            BuildingBlock* block = new BuildingBlock;
+	int variable = rand() % 4 + 1;
+	switch (variable)
+	{
+		case 1:
+            newTPiece(piece);
+			break;
+		case 2:
+            newSquarePiece(piece);
+			break;
+		case 3:
+            newSPiece(piece);
+			break;
+		case 4:
+            newLongPiece(piece);
+			break;	
+	}
 
-            // place block ptr in the board arr
-            board[row][col] = block;
 
-            // set position in upper right corner
-            block->row = row;
-            block->col = col;
-
-            // set block id for this building block
-            block->blockID = piece->blockID;
-
-            // push block to the piece vector 
-            piece->buildingBlocks.push_back(block);
-        }
-    }  
+    newSquarePiece(piece);
 
     // Place new piece in the board's game block map using block id
     pieceIDMap[piece->blockID] = piece;
@@ -55,6 +54,65 @@ void Board::newTetrisPiece(){
     // set currently moving piece to the new tetris piece blockID
     this->movingPieceBlockId = piece->blockID;
 }
+
+// places a new square piece on the board
+void Board::newSquarePiece(TetrisPiece* piece){
+
+    // place a 2x2 cube in the upper right corner of the board
+    for (int row=0; row<2; row++){
+        for(int col=0; col<2; col++){
+
+            piece->pushBuildingBlock(row, col, board);
+        }
+    }  
+}
+
+// places a new square piece on the board
+void Board::newSPiece(TetrisPiece* piece){
+
+    int placement_rows[4] = {0, 1, 1, 2};
+    int placement_cols[4] = {0, 0, 1, 1};
+
+    for (int i=0; i<4; i++){
+        piece->pushBuildingBlock(
+            placement_rows[i], 
+            placement_cols[i], 
+            board
+        );         
+    }  
+}
+
+
+// places a new square piece on the board
+void Board::newLongPiece(TetrisPiece* piece){
+
+    int placement_rows[4] = {0, 1, 2, 3};
+    int placement_cols[4] = {0, 0, 0, 0};
+
+    for (int i=0; i<4; i++){
+        piece->pushBuildingBlock(
+            placement_rows[i], 
+            placement_cols[i], 
+            board
+        );         
+    }  
+}
+
+// places a new square piece on the board
+void Board::newTPiece(TetrisPiece* piece){
+
+    int placement_rows[4] = {0, 1, 1, 1};
+    int placement_cols[4] = {1, 0, 1, 2};
+
+    for (int i=0; i<4; i++){
+        piece->pushBuildingBlock(
+            placement_rows[i], 
+            placement_cols[i], 
+            board
+        );         
+    }  
+}
+
 
 /**
  * @notice descendFallingPiece() accesses the currently moving piece using the movingPieceID key from the gameBlockMape

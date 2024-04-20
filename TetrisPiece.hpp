@@ -74,4 +74,7 @@ class TetrisPiece : public BuildingBlock {
         void moveRight(BuildingBlock* board[36][12]);
         void moveLeft(BuildingBlock* board[36][12]);
 
+        // places a new building block within the tetris piece at the specified position
+        void pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]);
+
 };
