@@ -16,13 +16,18 @@ void gameLoop(){
 	sf::Text scoreTxt;
 	sf::Font font;
 	int score = 1;
-
 	font.loadFromFile("Assets/Fonts/Font.TTF");
 	scoreTxt.setFont(font);
-
 	scoreTxt.setCharacterSize(25);
 	scoreTxt.setFillColor(sf::Color::White);
 	scoreTxt.setPosition(40, 4);
+
+	// IMAGE
+	sf::Texture CITY;
+	CITY.loadFromFile("Assets/tile/CITYJEFF.png"); // BRING CREDITS FROM JEFF BRANCH TO HERE AS WELL AS EVERYTHING ELSE
+
+	sf::Sprite citySpite;
+	citySpite.setTexture(CITY);
 
     Board board;
 	Cell cells[rows][cols];
@@ -75,6 +80,7 @@ void gameLoop(){
 	while (window.isOpen() && gameOver != true)
 	{
 		window.clear();
+		window.draw(citySpite);
 		window.draw(border);
 
 		if (music.getStatus() == sf::SoundSource::Status::Stopped)
@@ -119,6 +125,7 @@ void gameLoop(){
 
 				// make a new piece
 				board.newTetrisPiece();
+				score++;
 
 				// if there is a collision after placing the piece, end the game
 				TetrisPiece* newPiece = board.pieceIDMap[board.movingPieceBlockId];
