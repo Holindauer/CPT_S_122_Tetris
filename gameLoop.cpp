@@ -45,14 +45,13 @@ void gameLoop(){
     border.setFillColor(sf::Color::Transparent);
 	border.setOutlineColor(sf::Color::Blue);
 
-	// Music 
+	// Music
+	srand(time(0));
+	string filename;
 	sf::Music music;
 	music.setVolume(20.f);
 
-	int variable = rand() % 6 + 1;
-	string filename = musicPlayer(variable);
-
-	// Incorporate if !music.getStatus() != sf::Music::Playing 
+	filename = musicPlayer();
 	music.openFromFile(filename);
 	music.play();
 
@@ -77,6 +76,13 @@ void gameLoop(){
 	{
 		window.clear();
 		window.draw(border);
+
+		if (music.getStatus() == sf::SoundSource::Status::Stopped)
+		{
+			filename = musicPlayer();
+			music.openFromFile(filename);
+			music.play();
+		}
 
 		// Filling With Cells -> TODO: Only Put In FULL Cells
 		// TetrisPiece -> New tetris piece sets ID
@@ -150,18 +156,15 @@ void gameLoop(){
 				
 			}
 		}
-
-		// Remove this once the graphics are implemented 
-		system("clear");
-		//board.printBoard();
 	}
 
 
 }
 
-string musicPlayer(int variable)
+string musicPlayer()
 {
 	string filename;
+	int variable = rand() % 6 + 1;
 
 	switch (variable)
 	{
