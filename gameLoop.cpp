@@ -31,7 +31,7 @@ void gameLoop(){
 	sf::Font font;
 	int score = 1;
 
-	font.loadFromFile("Font.TTF");
+	font.loadFromFile("Assets/Fonts/Font.TTF");
 	scoreTxt.setFont(font);
 
 	scoreTxt.setCharacterSize(25);
@@ -189,22 +189,22 @@ string musicPlayer()
 	switch (variable)
 	{
 		case 1:
-			filename = "Songs/Thinking.wav";
+			filename = "Assets/Songs/Thinking.wav";
 			break;
 		case 2:
-			filename = "Songs/3D array.ogg";
+			filename = "Assets/Songs/3D array.ogg";
 			break;
 		case 3:
-			filename = "Songs/Cody'sDogs.ogg";
+			filename = "Assets/Songs/Cody'sDogs.ogg";
 			break;
 		case 4:
-			filename = "Songs/myocardial inf(ra)ction.ogg";
+			filename = "Assets/Songs/myocardial inf(ra)ction.ogg";
 			break;	
 		case 5:
-			filename = "Songs/Project_2.ogg";
+			filename = "Assets/Songs/Project_2.ogg";
 			break;
 		case 6:
-			filename = "Songs/lost.wav";
+			filename = "Assets/Songs/lost.wav";
 			break;
 	}
 
