@@ -2,8 +2,6 @@
 #include "Board.hpp"
 #include "cell.hpp"
 
-// TODO: if time available segment code for readability purposes
-
 // TODO: Make it less sensitive 
 
 // TODO: change x -> R/G/B
@@ -47,35 +45,12 @@ void gameLoop(){
     border.setFillColor(sf::Color::Transparent);
 	border.setOutlineColor(sf::Color::Blue);
 
-	// Music -------------------------------------------
-	// Messing Around With Commands -> Confirming We Can Use Open Music Sources Before Grabbing Some Online
-	// Xtra credit for unqiue songs?
+	// Music 
 	sf::Music music;
-	string filename;
 	music.setVolume(20.f);
 
 	int variable = rand() % 6 + 1;
-	switch (variable)
-	{
-		case 1:
-			filename = "Songs/Thinking.wav";
-			break;
-		case 2:
-			filename = "Songs/3D array.ogg";
-			break;
-		case 3:
-			filename = "Songs/Cody'sDogs.ogg";
-			break;
-		case 4:
-			filename = "Songs/myocardial inf(ra)ction.ogg";
-			break;	
-		case 5:
-			filename = "Songs/Project_2.ogg";
-			break;
-		case 6:
-			filename = "Songs/lost.wav";
-			break;
-	}
+	string filename = musicPlayer(variable);
 
 	// Incorporate if !music.getStatus() != sf::Music::Playing 
 	music.openFromFile(filename);
@@ -182,4 +157,33 @@ void gameLoop(){
 	}
 
 
+}
+
+string musicPlayer(int variable)
+{
+	string filename;
+
+	switch (variable)
+	{
+		case 1:
+			filename = "Songs/Thinking.wav";
+			break;
+		case 2:
+			filename = "Songs/3D array.ogg";
+			break;
+		case 3:
+			filename = "Songs/Cody'sDogs.ogg";
+			break;
+		case 4:
+			filename = "Songs/myocardial inf(ra)ction.ogg";
+			break;	
+		case 5:
+			filename = "Songs/Project_2.ogg";
+			break;
+		case 6:
+			filename = "Songs/lost.wav";
+			break;
+	}
+
+	return filename;
 }
