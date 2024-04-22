@@ -44,9 +44,6 @@ void Board::newTetrisPiece(){
 			break;	
 	}
 
-
-    newSquarePiece(piece);
-
     // Place new piece in the board's game block map using block id
     pieceIDMap[piece->blockID] = piece;
     pieceIDsOnBoard.push_back(piece->blockID);

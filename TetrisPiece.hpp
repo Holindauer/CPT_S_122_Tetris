@@ -74,6 +74,11 @@ class TetrisPiece : public BuildingBlock {
         void moveRight(BuildingBlock* board[36][12]);
         void moveLeft(BuildingBlock* board[36][12]);
 
+
+        // rotation functions
+        void rotateCW(BuildingBlock* board[36][12]);
+        vector<int> TetrisPiece::getRotatedCoordinates();
+
         // places a new building block within the tetris piece at the specified position
         void pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]);
 

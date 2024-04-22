@@ -249,3 +249,59 @@ void TetrisPiece::moveLeft(BuildingBlock* board[36][12]){
         }        
     }
 }
+
+
+// -------------------------------------------------------------------------------------------------------------- Rotation Functions
+
+void TetrisPiece::rotateCW(BuildingBlock* board[36][12]){
+
+    // get rotated coords
+    vector<int> rotatedCoordinates = getRotatedCoordinates();
+
+}
+
+vector<int> TetrisPiece::getRotatedCoordinates(){
+
+    // Retrieve building blocks for the piece
+    vector<BuildingBlock*> blocks = this->buildingBlocks;
+
+    // get size of blocks
+    int numBlocks = blocks.size();
+
+    // create 2D mat for coordinates in the blocks arr
+    vector<int> rowColMatrix;
+    vector<int> rotationOutput;
+
+    // populate rowCOlMatrix w/ the coords of the tetrs piece building blocks
+    for (int i=0; i<numBlocks; i++){
+        rowColMatrix.push_back(buildingBlocks[i]->col); // push x vals
+        rotationOutput.push_back(0);
+    }
+    for (int i=0; i<numBlocks; i++){
+        rowColMatrix.push_back(buildingBlocks[i]->row); // push y vals
+        rotationOutput.push_back(0);
+    }
+
+    // right rotation matrix
+    int rightRotation[2][2] = {
+        {0, 1}, 
+        {-1, 0}
+    };
+
+    // matrix multiplication: (2, 2) x (2, 4) --> (2, 4)
+    for (int i=0; i<numBlocks; i++){
+
+        // init rotation output matrix
+        rotationOutput[0 + i] = 0;
+        rotationOutput[numBlocks + i] = 0; // Note: (row*cols) + col indexing   
+
+        for (int j=0; j<2; j++){ // dot product
+
+            rotationOutput[i] += rightRotation[0][j] * rowColMatrix[numBlocks * j + i];
+            rotationOutput[numBlocks + i] += rightRotation[1][j] * rowColMatrix[numBlocks * j + i];
+        }
+    }
+
+    // returned rotaed coordinates
+    return rotationOutput;
+}
