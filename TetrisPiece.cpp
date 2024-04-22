@@ -258,8 +258,14 @@ void TetrisPiece::rotateCW(BuildingBlock* board[36][12]){
     // get rotated coords
     vector<int> rotatedCoordinates = getRotatedCoordinates();
 
+    // check that rotated coordinates do not cause a collision
+    if (rotationCollision(board, rotatedCoordinates)){
+        return;
+    }
+
 }
 
+// applies right rotation matrix to tetris piece coords. Returns flattened 2D mat
 vector<int> TetrisPiece::getRotatedCoordinates(){
 
     // Retrieve building blocks for the piece
@@ -305,3 +311,50 @@ vector<int> TetrisPiece::getRotatedCoordinates(){
     // returned rotaed coordinates
     return rotationOutput;
 }
+
+// determines if the new placement determined by getRotatedCoordinates() will result in a collision with another pieces
+bool TetrisPiece::rotationCollision(BuildingBlock* board[36][12], vector<int>& rotatedCoords){
+
+    // Retrieve building blocks for the piece
+    vector<BuildingBlock*> blocks = this->buildingBlocks;
+
+    int numBlocks = blocks.size();
+    
+    
+
+    // check that for the pieces that are
+    for (int i=0; i<numBlocks; i++){    
+
+        // get rotated cols
+        int rotatedX = rotatedCoords[i];
+        int rotatedY = rotatedCoords[numBlocks+i];// Note: (row*cols) + col indexing   
+
+        // check that piece is in the boundaries of the board
+        if (rotatedX > 11 || rotatedX < 0){ return true; }
+        if (rotatedY > 35 || rotatedY < 0){ return true; }
+
+        // check that if there is a non nulllptr piece on the board in the rotated position,
+        // that if belongs to the original tetris piece, otherwise it is a collision
+        if (board[rotatedY][rotatedX] != nullptr){
+
+            // check all blocks against the non nullptr
+            for (int block=0; block<numBlocks; block++){
+                
+                // get the original rows, cols for the current block
+                int originalX = blocks[block]->col;
+                int originalY = blocks[block]->row;
+
+                // if the rotated coord is overlapping with a non original coord, there is a collsion
+                if (board[rotatedY][rotatedX] != board[originalY][originalX]){
+                    return true;
+                }
+            }
+        }
+    }
+
+    // if no non nullptr, non tetris piece block found to be overlapping, 
+    return false;
+}
+
+
+

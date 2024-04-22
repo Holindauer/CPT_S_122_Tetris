@@ -78,6 +78,7 @@ class TetrisPiece : public BuildingBlock {
         // rotation functions
         void rotateCW(BuildingBlock* board[36][12]);
         vector<int> TetrisPiece::getRotatedCoordinates();
+        bool TetrisPiece::rotationCollision(BuildingBlock* board[36][12], vector<int>& rotatedCoordinates);
 
         // places a new building block within the tetris piece at the specified position
         void pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]);
