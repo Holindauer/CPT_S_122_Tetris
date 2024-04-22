@@ -69,7 +69,6 @@ void gameLoop(){
     sf::Time frameTime = sf::Time::Zero;
 
 	// time a piece will float before descending
-	// sf::Time maxPieceFloatTime = sf::seconds(0.128f);
 	sf::Time maxPieceFloatTime = sf::seconds(0.08f);
 
 	// time since the piece has descended
@@ -164,6 +163,25 @@ void gameLoop(){
 
 				// descend piece within the computer representation of the board
 				board.descendFallingPiece();
+
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+
+					// update representation in memory
+					board.moveRight();
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+
+					// update representation in memory
+					board.moveLeft();
+					
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+
+					// update representation in memory
+					board.rotateRight();
+					
+				}
 			}
 
 
@@ -172,24 +190,6 @@ void gameLoop(){
 
 				if (event.type == sf::Event::Closed)
 					window.close();
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-
-				// update representation in memory
-				board.moveRight();
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-
-				// update representation in memory
-				board.moveLeft();
-				
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-
-				// update representation in memory
-				board.rotateRight();
-				
 			}
 		}
 	}
