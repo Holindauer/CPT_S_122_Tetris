@@ -163,6 +163,8 @@ void gameLoop(){
 				} catch(...){
 					cout << "Error clearing rows" << endl;
 				}
+
+				
 			}
 
 			// reset the time the frame has been on the board
@@ -176,6 +178,24 @@ void gameLoop(){
 
 				// descend piece within the computer representation of the board
 				board.descendFallingPiece();
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+
+					// update representation in memory
+					board.moveRight();
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+
+					// update representation in memory
+					board.moveLeft();
+					
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+
+						// update representation in memory
+						board.rotateRight();
+						
+				}
 			}
 
 
@@ -186,23 +206,6 @@ void gameLoop(){
 					window.close();
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-
-				// update representation in memory
-				board.moveRight();
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-
-				// update representation in memory
-				board.moveLeft();
-				
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-
-					// update representation in memory
-					board.rotateRight();
-					
-				}
 		}
 	}
 }
