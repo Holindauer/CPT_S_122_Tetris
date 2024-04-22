@@ -3,6 +3,8 @@
 TetrisPiece::TetrisPiece(){
     isMoving = true;
     blockID = (int) std::time(0); // id is creation time
+
+    ColorInt = rand() % 4 + 1;
 }
 
 
@@ -250,9 +252,6 @@ void TetrisPiece::moveLeft(BuildingBlock* board[36][12]){
     }
 }
 
-
-// -------------------------------------------------------------------------------------------------------------- Rotation Functions
-
 void TetrisPiece::rotateRight(BuildingBlock* board[36][12]){
 
     // get rotated coords
@@ -280,6 +279,7 @@ void TetrisPiece::rotateRight(BuildingBlock* board[36][12]){
     applyRotation(board, rotatedCoordinates);
 
 }
+
 
 // applies right rotation matrix to tetris piece coords. Returns flattened 2D mat
 vector<int> TetrisPiece::getRotatedCoordinates(){
@@ -400,4 +400,3 @@ void TetrisPiece::applyRotation(BuildingBlock* board[36][12], vector<int>& rotat
         }   
     }
 }
-

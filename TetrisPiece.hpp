@@ -74,14 +74,15 @@ class TetrisPiece : public BuildingBlock {
         void moveRight(BuildingBlock* board[36][12]);
         void moveLeft(BuildingBlock* board[36][12]);
 
+        // places a new building block within the tetris piece at the specified position
+        void pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]);
+
+        int ColorInt; // This is basically a replacement for the enumerated colors
 
         // rotation functions
         void rotateRight(BuildingBlock* board[36][12]);
         vector<int> getRotatedCoordinates();
         bool rotationCollision(BuildingBlock* board[36][12], vector<int>& rotatedCoords);
         void applyRotation(BuildingBlock* board[36][12], vector<int>& rotatedCoords);
-
-        // places a new building block within the tetris piece at the specified position
-        void pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]);
 
 };
