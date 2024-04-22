@@ -263,6 +263,8 @@ void TetrisPiece::rotateCW(BuildingBlock* board[36][12]){
         return;
     }
 
+    // If no collision, adjust the position of the pieces on the board
+
 }
 
 // applies right rotation matrix to tetris piece coords. Returns flattened 2D mat
@@ -320,8 +322,6 @@ bool TetrisPiece::rotationCollision(BuildingBlock* board[36][12], vector<int>& r
 
     int numBlocks = blocks.size();
     
-    
-
     // check that for the pieces that are
     for (int i=0; i<numBlocks; i++){    
 
@@ -357,4 +357,50 @@ bool TetrisPiece::rotationCollision(BuildingBlock* board[36][12], vector<int>& r
 }
 
 
+// Adjust the coordinates on the board and tetris piece block vector to match the rotated coordinates
+void TetrisPiece::applyRotation(BuildingBlock* board[36][12], vector<int>& rotatedCoords){
 
+    if (isMoving){
+
+        // adjust buildingBlocs vector
+        for (int i=0; i<buildingBlocks.size(); i++){
+
+            // first set all previous positions on the board to nullptr
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = nullptr;
+
+            // get rotated cols
+            int rotatedX = rotatedCoords[i];
+            int rotatedY = rotatedCoords[buildingBlocks.size()+i];// Note: (row*cols) + col indexing   
+
+            // set the previous positon of the building block to the new position
+            buildingBlocks[i]->row = rotatedY;
+            buildingBlocks[i]->col = rotatedX;
+
+            // set the new position on the board
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = buildingBlocks[i];
+        }   
+    }
+}
+
+
+void TetrisPiece::moveRight(BuildingBlock* board[36][12]){
+
+        // check collision
+    if (this->collisionRight(board) != true && isMoving) {
+
+        // first set all previous positions on the board to nullptr
+        for (int i=0; i<4; i++){
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = nullptr;
+        }       
+         
+        // the place all on the board the new position of the 
+        for (int i=0; i<4; i++){
+
+            // move block's stored position right 1 col
+            buildingBlocks[i]->col += 1;
+
+            // place i'th block's ptr at its new position
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = buildingBlocks[i];
+        }        
+    }
+}
