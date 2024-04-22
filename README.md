@@ -1,7 +1,7 @@
 # CPT_S 122 Final Project --- Tetris
 
 <p align="center">
-  <img src="Assets/tile/Tetris.png" alt="tetris screenshot">
+  <img src="Tetris.png" alt="tetris screenshot">
 </p>
 
 # Running the Game
