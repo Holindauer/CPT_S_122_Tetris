@@ -21,6 +21,21 @@ TetrisPiece::~TetrisPiece(){
     }
 }
 
+void TetrisPiece::calcCenter()
+{
+    int totalRow = 0;
+    int totalCol = 0;
+
+    for (BuildingBlock* block : buildingBlocks) {
+        totalRow += block->row;
+        totalCol += block->col;
+    }
+    
+    // Find center of the piece
+    this->centerRow = totalRow / buildingBlocks.size();
+    this->centerCol = totalCol / buildingBlocks.size();
+}
+
 
 // places a new building block within the tetris piece at the specified position
 void TetrisPiece::pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]){

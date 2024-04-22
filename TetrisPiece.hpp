@@ -76,5 +76,9 @@ class TetrisPiece : public BuildingBlock {
 
         // places a new building block within the tetris piece at the specified position
         void pushBuildingBlock(int row, int col, BuildingBlock* board[36][12]);
+        void calcCenter();
 
+        int centerCol;
+        int centerRow;
+        
 };

@@ -6,7 +6,7 @@ int main(void){
 
     Board board;
 
-    cout << "Starting Board" << endl;
+/*     cout << "Starting Board" << endl;
 
     board.printBoard();
 
@@ -25,6 +25,19 @@ int main(void){
 
     cout << "After Moving Left" << endl;
     board.moveLeft();
+    board.printBoard(); */
+
+    board.newTetrisPiece();
+
+    for (int i = 0; i < 1; i++)
+    {
+        board.moveRight();
+        board.descendFallingPiece();
+    }
+
+    board.printBoard();
+    cout << endl << endl;
+    board.rotatePiece();
     board.printBoard();
 
 

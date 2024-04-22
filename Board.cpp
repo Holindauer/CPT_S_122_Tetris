@@ -1,7 +1,5 @@
 #include "Board.hpp"
 
-
-
 /**
  * contrsutor initializes all BuildinBlock ptrs in the board 
  * vector of vector of BuildingBlock ptrs to the nullptr
@@ -26,7 +24,7 @@ void Board::newTetrisPiece(){
     // create tetris piece container
     TetrisPiece* piece = new TetrisPiece;
 
-
+    srand(time(0));
 	int variable = rand() % 4 + 1;
 	switch (variable)
 	{
@@ -44,8 +42,7 @@ void Board::newTetrisPiece(){
 			break;	
 	}
 
-
-    newSquarePiece(piece);
+    piece->calcCenter();
 
     // Place new piece in the board's game block map using block id
     pieceIDMap[piece->blockID] = piece;
@@ -334,10 +331,38 @@ void Board::removeEmptyTetrisPieces(){
 
 
 // Checks if a position on the board is empty
-bool Board::isEmpty(int x, int y){
+bool Board::isEmpty(int x, int y)
+{
 
     if (board[x][y] == nullptr) { return true; }
     else { return false; }
 }
 
+void Board::rotatePiece()
+{
+    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
+    vector<BuildingBlock*> newBuildingBlocks;
 
+    for (BuildingBlock* block : piece->buildingBlocks)
+    {
+        int newRow = piece->centerRow - block->col + piece->centerCol;
+        int newCol = piece->centerCol + block->row - piece->centerRow;
+
+        if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && board[newRow][newCol] == nullptr)
+        {
+            block->row = newRow;
+            block->col = newCol;
+            newBuildingBlocks.push_back(block);
+            board[newRow][newCol] = block;
+        }
+    }
+
+    if (newBuildingBlocks.size() == piece->buildingBlocks.size()) 
+    {
+        piece->buildingBlocks = newBuildingBlocks;
+        for (BuildingBlock* block : piece->buildingBlocks)
+        {
+            board[block->row][block->col] = block;
+        }
+    }
+}

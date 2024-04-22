@@ -66,4 +66,6 @@ class Board {
         void newSPiece(TetrisPiece* piece);
         void newLongPiece(TetrisPiece* piece);
         void newTPiece(TetrisPiece* piece);
+
+        void rotatePiece();
 };

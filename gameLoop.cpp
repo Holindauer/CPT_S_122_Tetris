@@ -168,7 +168,9 @@ void gameLoop(){
 				if (event.type == sf::Event::Closed)
 					window.close();
 			}
-
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+				board.rotatePiece();
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 
 				// update representation in memory
