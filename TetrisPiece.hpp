@@ -76,7 +76,7 @@ class TetrisPiece : public BuildingBlock {
 
 
         // rotation functions
-        void rotateCW(BuildingBlock* board[36][12]);
+        void rotateRight(BuildingBlock* board[36][12]);
         vector<int> getRotatedCoordinates();
         bool rotationCollision(BuildingBlock* board[36][12], vector<int>& rotatedCoords);
         void applyRotation(BuildingBlock* board[36][12], vector<int>& rotatedCoords);

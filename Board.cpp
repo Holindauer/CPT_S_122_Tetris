@@ -137,6 +137,15 @@ void Board::moveLeft(){
     piece->moveLeft(board);
 }
 
+// Rotates a piece right if there is no collision
+void Board::rotateRight(){
+    cout << "Rotating Right" << endl;
+
+    // retrieve the currently moving piece and descend it.
+    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
+    piece->rotateRight(board);
+}
+
 /**
  * @jeff This function prints the state of the board to the terminal. I am using it for testing
  * the computer representation of what is happening in memory. The grpahics displayed at each iter
@@ -216,7 +225,7 @@ bool Board::clearFullRows(){
 }
 
 
-// 
+// Shifts board after a row is cleared
 void Board::shiftAfterClearing(vector<int> clearedRows){  
 
     // 1D temp array of building block ptrs (used as 2D array w/ striding)
