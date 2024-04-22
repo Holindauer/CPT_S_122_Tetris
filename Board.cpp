@@ -26,7 +26,7 @@ void Board::newTetrisPiece(){
     // create tetris piece container
     TetrisPiece* piece = new TetrisPiece;
 
-
+    srand(time(0));
 	int variable = rand() % 4 + 1;
 	switch (variable)
 	{
@@ -110,6 +110,15 @@ void Board::newTPiece(TetrisPiece* piece){
     }  
 }
 
+// Rotates a piece right if there is no collision
+void Board::rotateRight(){
+    cout << "Rotating Right" << endl;
+
+    // retrieve the currently moving piece and descend it.
+    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
+    piece->rotateRight(board);
+}
+
 
 /**
  * @notice descendFallingPiece() accesses the currently moving piece using the movingPieceID key from the gameBlockMape
@@ -135,15 +144,6 @@ void Board::moveLeft(){
     // retrieve the currently moving piece and descend it.
     TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
     piece->moveLeft(board);
-}
-
-// Rotates a piece right if there is no collision
-void Board::rotateRight(){
-    cout << "Rotating Right" << endl;
-
-    // retrieve the currently moving piece and descend it.
-    TetrisPiece* piece = pieceIDMap[movingPieceBlockId];
-    piece->rotateRight(board);
 }
 
 /**
@@ -225,7 +225,7 @@ bool Board::clearFullRows(){
 }
 
 
-// Shifts board after a row is cleared
+// 
 void Board::shiftAfterClearing(vector<int> clearedRows){  
 
     // 1D temp array of building block ptrs (used as 2D array w/ striding)

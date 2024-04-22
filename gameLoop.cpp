@@ -69,6 +69,7 @@ void gameLoop(){
     sf::Time frameTime = sf::Time::Zero;
 
 	// time a piece will float before descending
+	// sf::Time maxPieceFloatTime = sf::seconds(0.128f);
 	sf::Time maxPieceFloatTime = sf::seconds(0.08f);
 
 	// time since the piece has descended
@@ -76,15 +77,16 @@ void gameLoop(){
 
 	// gameOver status
 	bool gameOver = false;
+	int ColorInt = 0;
+
+	TetrisPiece* ColorFoundPiece;
+
 	while (window.isOpen() && gameOver != true)
 	{
-
-		// draw background
 		window.clear();
 		window.draw(citySpite);
 		window.draw(border);
 
-		// play music
 		if (music.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			filename = musicPlayer();
@@ -92,25 +94,36 @@ void gameLoop(){
 			music.play();
 		}
 
-		// draw all pieces on the board
-		for (int height = 0; height < rows; height++){
-			for (int length = 0; length < cols; length++){
+		TetrisPiece* movingPiece = board.pieceIDMap[board.movingPieceBlockId];
 
-				// draw cell at current position if there is a piece there
-				if (!board.isEmpty(height, length)){
+		for (int height = 0; height < rows; height++)
+		{
+			for (int length = 0; length < cols; length++)
+			{
+				if (!board.isEmpty(height, length))
+				{
+
 					cells[height][length].setPosition(cellSize * length, cellSize * height);
+					cells[height][length].setCellX(length);
+					cells[height][length].setCellY(height);
+
+					// The cells that have same x and y to blocks movingblock, change their color to match it
+					for (int i = 0; i < 4; i++) {
+						if (cells[height][length].cellX == movingPiece->buildingBlocks[i]->col && cells[height][length].cellY == movingPiece->buildingBlocks[i]->row)
+						{
+							cells[height][length].setCellColor(movingPiece->ColorInt); //TetrisPieceColor
+						}
+					}
 					window.draw(cells[height][length].cellShape);
 				}
 			}
 		}
 
-		// score display
 		string scoreAsString = std::to_string(score);
 		string totalString = "Score: " + scoreAsString;
 		scoreTxt.setString(totalString);
 		window.draw(scoreTxt);
 
-		// display backdrop
 		window.display();
 
 		// reset elsapsed time
@@ -141,7 +154,7 @@ void gameLoop(){
 				try {	
 					// clear any full rows
 					if (board.clearFullRows()){
-						score + 10;
+						score += 10;
 						// update board if changes were made
 						board.updatePieceMap();
 						board.removeEmptyTetrisPieces();
@@ -163,25 +176,6 @@ void gameLoop(){
 
 				// descend piece within the computer representation of the board
 				board.descendFallingPiece();
-
-
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-
-					// update representation in memory
-					board.moveRight();
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-
-					// update representation in memory
-					board.moveLeft();
-					
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-
-					// update representation in memory
-					board.rotateRight();
-					
-				}
 			}
 
 
@@ -191,6 +185,24 @@ void gameLoop(){
 				if (event.type == sf::Event::Closed)
 					window.close();
 			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+
+				// update representation in memory
+				board.moveRight();
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+
+				// update representation in memory
+				board.moveLeft();
+				
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+
+					// update representation in memory
+					board.rotateRight();
+					
+				}
 		}
 	}
 }
