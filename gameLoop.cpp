@@ -79,10 +79,13 @@ void gameLoop(){
 	bool gameOver = false;
 	while (window.isOpen() && gameOver != true)
 	{
+
+		// draw background
 		window.clear();
 		window.draw(citySpite);
 		window.draw(border);
 
+		// play music
 		if (music.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			filename = musicPlayer();
@@ -90,23 +93,25 @@ void gameLoop(){
 			music.play();
 		}
 
-		for (int height = 0; height < rows; height++)
-		{
-			for (int length = 0; length < cols; length++)
-			{
-				if (!board.isEmpty(height, length))
-				{
-				cells[height][length].setPosition(cellSize * length, cellSize * height);
-				window.draw(cells[height][length].cellShape);
+		// draw all pieces on the board
+		for (int height = 0; height < rows; height++){
+			for (int length = 0; length < cols; length++){
+
+				// draw cell at current position if there is a piece there
+				if (!board.isEmpty(height, length)){
+					cells[height][length].setPosition(cellSize * length, cellSize * height);
+					window.draw(cells[height][length].cellShape);
 				}
 			}
 		}
 
+		// score display
 		string scoreAsString = std::to_string(score);
 		string totalString = "Score: " + scoreAsString;
 		scoreTxt.setString(totalString);
 		window.draw(scoreTxt);
 
+		// display backdrop
 		window.display();
 
 		// reset elsapsed time
@@ -178,6 +183,12 @@ void gameLoop(){
 
 				// update representation in memory
 				board.moveLeft();
+				
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+
+				// update representation in memory
+				board.rotateRight();
 				
 			}
 		}

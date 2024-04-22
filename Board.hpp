@@ -49,6 +49,7 @@ class Board {
         // player movement functions
         void moveRight();
         void moveLeft();
+        void rotateRight();
 
         // funcs for clearing rows
         bool checkFullRow(int row);

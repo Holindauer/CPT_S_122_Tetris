@@ -249,3 +249,155 @@ void TetrisPiece::moveLeft(BuildingBlock* board[36][12]){
         }        
     }
 }
+
+
+// -------------------------------------------------------------------------------------------------------------- Rotation Functions
+
+void TetrisPiece::rotateRight(BuildingBlock* board[36][12]){
+
+    // get rotated coords
+    vector<int> rotatedCoordinates = getRotatedCoordinates();
+
+    cout << "\nOriginal Coordinates" << endl;
+    for (int i=0; i<buildingBlocks.size(); i++){
+        cout << buildingBlocks[i]->col <<  " " << buildingBlocks[i]->row << endl;
+    }
+    
+
+    cout << "\nRotated Coordinates" << endl;
+    for (int i=0; i<rotatedCoordinates.size(); i++){
+        cout << rotatedCoordinates[i] << " "<< rotatedCoordinates[i + buildingBlocks.size()] << endl;
+    }
+
+
+    // check that rotated coordinates do not cause a collision
+    if (rotationCollision(board, rotatedCoordinates)){
+        cout << "Rotation Collision" << endl;
+        return;
+    }
+
+    // If no collision, adjust the position of the pieces on the board
+    applyRotation(board, rotatedCoordinates);
+
+}
+
+// applies right rotation matrix to tetris piece coords. Returns flattened 2D mat
+vector<int> TetrisPiece::getRotatedCoordinates(){
+
+    // Retrieve building blocks for the piece
+    vector<BuildingBlock*> blocks = this->buildingBlocks;
+
+    // get size of blocks
+    int numBlocks = blocks.size();
+
+    // create 2D mat for coordinates in the blocks arr
+    vector<int> rowColMatrix(2*numBlocks, 0); // <---  set memory to zero
+    vector<int> rotationOutput(2*numBlocks, 0);
+
+    // set the origin of rotation to the first point in the vector of blocks
+    int rotationOriginX = blocks[0]->col;
+    int rotationOriginY = blocks[0]->row;
+
+
+    // fill rowColMatrix with tetris piece block coords after translating them to the origin
+    for (int i=0; i< numBlocks; i++){
+        rowColMatrix[i] = blocks[i]->col - rotationOriginX;       // x vals
+        rowColMatrix[numBlocks+i] = blocks[i]->row - rotationOriginY;  // y vals
+
+    }
+
+    // right rotation matrix
+    int rightRotation[2][2] = {
+        {0, 1}, 
+        {-1, 0}
+    };
+
+    // matrix multiplication: (2, 2) x (2, 4) --> (2, 4)
+    for (int i=0; i<numBlocks; i++){
+
+        // dot product w/ rotaion matrix
+        rotationOutput[i] += rightRotation[0][0] * rowColMatrix[i];
+        rotationOutput[i] += rightRotation[0][1] * rowColMatrix[numBlocks + i];
+        rotationOutput[i + numBlocks] += rightRotation[1][0] * rowColMatrix[i];
+        rotationOutput[i + numBlocks] += rightRotation[1][1] * rowColMatrix[numBlocks + i];
+
+        // translate the coordinate back to its original location from the origin
+        // now that the roation has been applied
+        rotationOutput[i] += rotationOriginX;
+        rotationOutput[numBlocks + i] += rotationOriginY;
+    }
+
+    // returned rotaed coordinates
+    return rotationOutput;
+}
+
+// determines if the new placement determined by getRotatedCoordinates() will result in a collision with another pieces
+bool TetrisPiece::rotationCollision(BuildingBlock* board[36][12], vector<int>& rotatedCoords){
+
+    // Retrieve building blocks for the piece
+    vector<BuildingBlock*> blocks = this->buildingBlocks;
+
+    int numBlocks = blocks.size();
+    
+    // check that for the pieces that are
+    for (int i=0; i<numBlocks; i++){    
+
+        // get rotated cols
+        int rotatedX = rotatedCoords[i];
+        int rotatedY = rotatedCoords[numBlocks+i];// Note: (row*cols) + col indexing   
+
+        // check that piece is in the boundaries of the board
+        if (rotatedX > 11 || rotatedX < 0){ return true; }
+        if (rotatedY > 35 || rotatedY < 0){ return true; }
+
+        // get the contents of the rotated position
+        BuildingBlock* rotatedCoordContents = board[rotatedY][rotatedX];
+
+        // if the rotated position does not containthis piece and is not nullptr 
+        if (rotatedCoordContents != nullptr && rotatedCoordContents != blocks[i]){
+
+            // assume different piece
+            bool differentPiece = true;
+
+            // if rotated coord contents belongs to the piece, break to next piece comparison
+            for (int i=0; i<numBlocks; i++){
+                if (blocks[i] == rotatedCoordContents){
+                    differentPiece = false;
+                    break;
+                }
+            }
+
+            // return true if the block at the rotated coord doesnt belong to the piece
+            if (differentPiece == true){ return true; }
+        }
+    }
+
+    return false;
+}
+
+
+// Adjust the coordinates on the board and tetris piece block vector to match the rotated coordinates
+void TetrisPiece::applyRotation(BuildingBlock* board[36][12], vector<int>& rotatedCoords){
+
+    if (isMoving){
+
+        // adjust buildingBlocs vector
+        for (int i=0; i<buildingBlocks.size(); i++){
+
+            // first set all previous positions on the board to nullptr
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = nullptr;
+
+            // get rotated cols
+            int rotatedX = rotatedCoords[i];
+            int rotatedY = rotatedCoords[buildingBlocks.size()+i];// Note: (row*cols) + col indexing   
+
+            // set the previous positon of the building block to the new position
+            buildingBlocks[i]->row = rotatedY;
+            buildingBlocks[i]->col = rotatedX;
+
+            // set the new position on the board
+            board[buildingBlocks[i]->row][buildingBlocks[i]->col] = buildingBlocks[i];
+        }   
+    }
+}
+
