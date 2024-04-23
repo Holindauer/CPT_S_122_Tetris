@@ -15,6 +15,10 @@ The game is supported for linux. To play the game, run:
 
     ./runMain.sh
 
+To test the game after downloading (TestCases), run:
+
+    ./runTests.sh
+
 # Controls
 
  - left arrow

@@ -67,4 +67,8 @@ class Board {
         void newSPiece(TetrisPiece* piece);
         void newLongPiece(TetrisPiece* piece);
         void newTPiece(TetrisPiece* piece);
+
+        // Test Case Functions
+        void setBlock(int x, int y, BuildingBlock* block);
+        void newTestPiece(int variable);
 };

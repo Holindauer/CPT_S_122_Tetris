@@ -346,4 +346,37 @@ bool Board::isEmpty(int x, int y){
     else { return false; }
 }
 
+void Board::setBlock(int x, int y, BuildingBlock* block)
+{
+    board[x][y] = block;
+}
+
+void Board::newTestPiece(int variable){
+
+    // create tetris piece container
+    TetrisPiece* piece = new TetrisPiece;
+
+	switch (variable)
+	{
+		case 1:
+            newTPiece(piece);
+			break;
+		case 2:
+            newSquarePiece(piece);
+			break;
+		case 3:
+            newSPiece(piece);
+			break;
+		case 4:
+            newLongPiece(piece);
+			break;	
+	}
+
+    // Place new piece in the board's game block map using block id
+    pieceIDMap[piece->blockID] = piece;
+    pieceIDsOnBoard.push_back(piece->blockID);
+
+    // set currently moving piece to the new tetris piece blockID
+    this->movingPieceBlockId = piece->blockID;
+}
 

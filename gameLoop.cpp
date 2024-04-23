@@ -87,6 +87,7 @@ void gameLoop(){
 		window.draw(citySpite);
 		window.draw(border);
 
+		// Check music (looping songlist)
 		if (music.getStatus() == sf::SoundSource::Status::Stopped)
 		{
 			filename = musicPlayer();
@@ -96,6 +97,7 @@ void gameLoop(){
 
 		TetrisPiece* movingPiece = board.pieceIDMap[board.movingPieceBlockId];
 
+		// Iterate thru board, if !isempty then place block on screen
 		for (int height = 0; height < rows; height++)
 		{
 			for (int length = 0; length < cols; length++)
@@ -119,6 +121,7 @@ void gameLoop(){
 			}
 		}
 
+		// Scoring stuff
 		string scoreAsString = std::to_string(score);
 		string totalString = "Score: " + scoreAsString;
 		scoreTxt.setString(totalString);

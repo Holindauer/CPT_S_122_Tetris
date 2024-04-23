@@ -1,33 +1,12 @@
-#include "Board.hpp"
-#include "TetrisPiece.hpp"
+#include "testCases.hpp"
 
 
-int main(void){
-
-    Board board;
-
-    cout << "Starting Board" << endl;
-
-    board.printBoard();
-
-    cout << "After Placing a Piece on the Board" << endl;
-
-    board.newTetrisPiece();
-    board.printBoard();
-
-    cout << "After Moving Down" << endl;
-    board.descendFallingPiece();
-    board.printBoard();
-
-    cout << "After Moving Right" << endl;
-    board.moveRight();
-    board.printBoard();
-
-    cout << "After Moving Left" << endl;
-    board.moveLeft();
-    board.printBoard();
-
-
-
-    return 0;
+int main(void)
+{
+    Tests testCase;
+    testCase.TestOne(); // Border/Movement
+    testCase.TestTwo(); // Block collision
+    testCase.TestThree(); // rotation
+    testCase.TestFour(); // Row Clear
+    testCase.TestFive(); // rotation collision
 }
