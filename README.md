@@ -1,5 +1,8 @@
 # CPT_S 122 Final Project --- Tetris
 
+# Video Link
+https://youtu.be/9Lci1NwX2fc
+
 <p align="center">
   <img src="Tetris.png" alt="tetris screenshot">
 </p>
