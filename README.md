@@ -49,3 +49,6 @@ As well, rotation is performed using a rotation matrix on the xy coordinates of 
 # Authors:
 - Hunter Lindauer
 - Jefferson James Kline
+
+# Credits:
+TokyoGeisha for Background Art: https://opengameart.org/content/ruined-city-background
